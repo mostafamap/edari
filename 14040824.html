@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مبدل کامل واحدهای پولی ایران</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a5276;
+            --secondary-color: #2874a6;
+            --accent-color: #f1c40f;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-bg: #f5f7fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            text-align: center;
+        }
+        
+        .header-link {
+            position: absolute;
+            left: 20px;
+            bottom: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .header-link:hover {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+        }
+        
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: none;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            text-align: right;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            color: var(--secondary-color);
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .btn-reset {
+            background: linear-gradient(to right, var(--danger-color), #c0392b);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            color: white;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+            color: white;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+        }
+        
+        .footer-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--accent-color);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* حذف چرخاننده‌های input عددی */
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        .conversion-rules {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .rules-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .rules-table th, .rules-table td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+        
+        .rules-table th {
+            background-color: #e9ecef;
+        }
+        
+        .rule-highlight {
+            background-color: #fef9e7;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: #d35400;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .conversion-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .conversion-item {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .conversion-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .input-group input {
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: left;
+            direction: ltr;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .result, .toman, .ghoran, .calculation {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .result {
+            background-color: #e8f4fc;
+            color: var(--secondary-color);
+        }
+        
+        .toman {
+            background-color: #fef9e7;
+            color: #d35400;
+        }
+        
+        .ghoran {
+            background-color: #e8f6f3;
+            color: var(--success-color);
+        }
+        
+        .calculation {
+            background-color: #f4ecf7;
+            color: #8e44ad;
+            font-size: 0.9rem;
+        }
+        
+        .number-display {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .reset-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .conversion-order {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .order-number {
+            background: var(--secondary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            .card {
+                margin-bottom: 15px;
+            }
+            .header-link {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                display: block;
+                text-align: center;
+                margin-top: 10px;
+            }
+            
+            .conversion-box {
+                flex-direction: column;
+            }
+            
+            .number-display {
+                font-size: 1rem;
+            }
+            
+            .conversion-order {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر -->
+    <div class="header text-center">
+        <div class="container">
+            <h1 class="mb-3"><i class="bi bi-calculator"></i> مبدل کامل واحدهای پولی ایران</h1>
+            <p class="lead">بر اساس قانون حذف چهار صفر از پول ملی</p>
+            
+            <!-- لینک کم رنگ در هدر -->
+            <a href="https://kargozin.com/" class="header-link" target="_blank">
+                <i class="bi bi-link-45deg"></i> kargozin.com
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- کارت تبدیل واحدها -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><i class="bi bi-arrow-left-right"></i> تبدیل واحدهای پولی</h3>
+                
+                <!-- نمایش ترتیب تبدیل ها -->
+                <div class="conversion-order mb-4">
+                    <div class="order-item">
+                        <div class="order-number">1</div>
+                        <span>تبدیل تومان رایج</span>
+                    </div>
+                    <div class="order-item">
+                        <div class="order-number">2</div>
+                        <span>تبدیل ریال قدیم</span>
+                    </div>
+                    <div class="order-item">
+                        <div class="order-number">3</div>
+                        <span>تبدیل ریال جدید</span>
+                    </div>
+                </div>
+                
+                <div class="conversion-box">
+                    <!-- تبدیل تومان رایج -->
+                    <div class="conversion-item">
+                        <div class="conversion-title">
+                            تبدیل تومان رایج به سایر واحدها
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="currentTomanInput" placeholder="مقدار تومان رایج را وارد کنید" class="number-input">
+                            <div class="result" id="rialFromToman">-</div>
+                            <div class="toman" id="newRialFromToman">-</div>
+                            <div class="ghoran" id="ghoranFromToman">-</div>
+                            <div class="calculation" id="calculationToman">-</div>
+                        </div>
+                    </div>
+                    
+                    <!-- تبدیل ریال قدیم -->
+                    <div class="conversion-item">
+                        <div class="conversion-title">
+                            تبدیل ریال قدیم به سایر واحدها
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="currentRialInput" placeholder="مقدار ریال قدیم را وارد کنید" class="number-input">
+                            <div class="result" id="newRialResult">-</div>
+                            <div class="toman" id="tomanFromCurrent">-</div>
+                            <div class="ghoran" id="ghoranFromCurrent">-</div>
+                            <div class="calculation" id="calculationCurrent">-</div>
+                        </div>
+                    </div>
+                    
+                    <!-- تبدیل ریال جدید -->
+                    <div class="conversion-item">
+                        <div class="conversion-title">
+                            تبدیل ریال جدید به سایر واحدها
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="newRialInput" placeholder="مقدار ریال جدید را وارد کنید" class="number-input">
+                            <div class="result" id="currentRialResult">-</div>
+                            <div class="toman" id="tomanFromNew">-</div>
+                            <div class="ghoran" id="ghoranFromNew">-</div>
+                            <div class="calculation" id="calculationNew">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- دکمه بازنشانی -->
+                <div class="reset-section">
+                    <button id="reset-btn" class="btn-reset">
+                        <i class="bi bi-arrow-clockwise"></i> بازنشانی همه مقادیر
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- کارت قوانین تبدیل -->
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"><i class="bi bi-info-circle"></i> قوانین تبدیل واحد پول</h3>
+                <div class="conversion-rules">
+                    <table class="rules-table">
+                        <thead>
+                            <tr>
+                                <th>واحد پولی</th>
+                                <th>معادل</th>
+                                <th>مقدار</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1 تومان رایج</td>
+                                <td>=</td>
+                                <td>10 ریال قدیم</td>
+                            </tr>
+                            <tr>
+                                <td>10,000 ریال قدیم</td>
+                                <td>=</td>
+                                <td>1 ریال جدید</td>
+                            </tr>
+                            <tr>
+                                <td>1 ریال جدید</td>
+                                <td>=</td>
+                                <td>100 قِران</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="rule-highlight">
+                        هر 1,000 تومان رایج = هر 10,000 ریال قدیم = 1 ریال جدید
+                    </div>
+                    <div class="rule-highlight">
+                        هر 1 ریال جدید = 100 قِران
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- لینک‌های مفید -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title text-center"><i class="bi bi-info-circle"></i> لینک‌های مفید</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <a href="https://qavanin.ir/Law/TreeText/?IDS=15700392533454585855" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                            <i class="bi bi-link me-2"></i> قانون بانك مركزي جمهوري اسلامي ايران
+                        </a>
+                        <a href="https://www.kargozin.com/?p=14123" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                            <i class="bi bi-link me-2"></i> قانون بانك مركزي جمهوري اسلامي ايران
+                        </a>
+                        <a href="https://www.kargozin.com/?p=14140" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                            <i class="bi bi-link me-2"></i> حذف چهار صفر از پول ملی و تاثیر آن بر واحدهای اداری و مالی دستگاه‌ها + محاسبه گر آنلاین
+                        </a>
+                    </div>
+
+                    <div class="col-12 mt-4 text-center">
+                        <a href="https://kargozin.com/" target="_blank" class="btn btn-primary">
+                            <i class="bi bi-google me-2"></i> مجله کارگزینی
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="footer text-center mt-5">
+        <div class="container">
+            <p class="mb-3">🍀🤞🌻 توسعه‌یافته توسط <span class="logo">مجله کارگزینی</span> | نسخه 1404/08/24 🌻🤞🍀</p>
+            <div class="footer-links mb-3">
+                <a href="mailto:mustafa.alimohammadi@gmail.com">
+                    <i class="bi bi-envelope me-1"></i> توسعه دهنده: مصطفی علیمحمدی
+                </a>
+                <a href="https://kargozin.com/" target="_blank">
+                    <i class="bi bi-globe me-1"></i> مجله کارگزینی/سامانه اداری و استخدامی 
+                </a>
+                <a href="https://t.me/+W10Ae66GdN40MDg0" target="_blank">
+                    <i class="bi bi-telegram me-1"></i> گروه تبادل نظر مجله کارگزینی
+                </a>
+                <a href="http://t.me/+eRSSofhaSpo4ZGNk" target="_blank">
+                    <i class="bi bi-telegram me-1"></i> کانال تلگرام مجله کارگزینی
+                </a>
+            </div>
+            <p>© کلیه حقوق این محاسبه‌گر برای سایت مجله کارگزینی محفوظ است</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get DOM elements
+        const currentRialInput = document.getElementById('currentRialInput');
+        const newRialInput = document.getElementById('newRialInput');
+        const currentTomanInput = document.getElementById('currentTomanInput');
+        
+        const newRialResult = document.getElementById('newRialResult');
+        const currentRialResult = document.getElementById('currentRialResult');
+        const rialFromToman = document.getElementById('rialFromToman');
+        
+        const tomanFromCurrent = document.getElementById('tomanFromCurrent');
+        const tomanFromNew = document.getElementById('tomanFromNew');
+        const newRialFromToman = document.getElementById('newRialFromToman');
+        
+        const ghoranFromCurrent = document.getElementById('ghoranFromCurrent');
+        const ghoranFromNew = document.getElementById('ghoranFromNew');
+        const ghoranFromToman = document.getElementById('ghoranFromToman');
+        
+        const calculationCurrent = document.getElementById('calculationCurrent');
+        const calculationNew = document.getElementById('calculationNew');
+        const calculationToman = document.getElementById('calculationToman');
+        
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // تبدیل اعداد فارسی و عربی به انگلیسی
+        function convertToEnglishNumbers(str) {
+            if (!str) return '';
+            
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            
+            let result = str.toString();
+            
+            // تبدیل اعداد فارسی
+            for (let i = 0; i < 10; i++) {
+                result = result.replace(new RegExp(persianNumbers[i], 'g'), englishNumbers[i]);
+            }
+            
+            // تبدیل اعداد عربی
+            for (let i = 0; i < 10; i++) {
+                result = result.replace(new RegExp(arabicNumbers[i], 'g'), englishNumbers[i]);
+            }
+            
+            return result;
+        }
+        
+        // Format number with commas (جداکننده هزارگان)
+        function formatNumber(num) {
+            if (isNaN(num) || num === null) return '';
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // تبدیل رشته ورودی به عدد
+        function parseInputValue(value) {
+            if (!value) return 0;
+            
+            // تبدیل اعداد فارسی/عربی به انگلیسی
+            const englishValue = convertToEnglishNumbers(value);
+            
+            // حذف همه کاراکترهای غیرعددی به جز نقطه برای اعداد اعشاری
+            const numericString = englishValue.replace(/[^\d.]/g, '');
+            
+            return parseFloat(numericString) || 0;
+        }
+        
+        // اعمال فرمت هنگام تایپ
+        function formatInputOnType(input) {
+            input.addEventListener('input', function() {
+                const cursorPosition = this.selectionStart;
+                const originalValue = this.value;
+                
+                // تبدیل به عدد انگلیسی
+                const englishValue = convertToEnglishNumbers(originalValue);
+                
+                // حذف همه کاراکترهای غیرعددی
+                const numericValue = englishValue.replace(/[^\d]/g, '');
+                
+                if (numericValue) {
+                    const number = parseInt(numericValue, 10);
+                    this.value = formatNumber(number);
+                    
+                    // حفظ موقعیت کرسر
+                    const newCursorPosition = cursorPosition + (this.value.length - originalValue.length);
+                    this.setSelectionRange(newCursorPosition, newCursorPosition);
+                } else {
+                    this.value = '';
+                }
+                
+                // اجرای تبدیل مربوطه
+                if (this.id === 'currentRialInput') {
+                    convertCurrentRial();
+                } else if (this.id === 'newRialInput') {
+                    convertNewRial();
+                } else if (this.id === 'currentTomanInput') {
+                    convertCurrentToman();
+                }
+            });
+        }
+        
+        // تبدیل تومان رایج
+        function convertCurrentToman() {
+            if (currentTomanInput.value === '' || currentTomanInput.value === '0') {
+                rialFromToman.textContent = '-';
+                newRialFromToman.textContent = '-';
+                ghoranFromToman.textContent = '-';
+                calculationToman.textContent = '-';
+                return;
+            }
+            
+            const currentToman = parseInputValue(currentTomanInput.value);
+            const currentRial = currentToman * 10;
+            const newRial = currentRial / 10000;
+            const ghoran = newRial * 100;
+            
+            // Format results
+            const formattedCurrentToman = formatNumber(currentToman);
+            const formattedCurrentRial = formatNumber(currentRial);
+            const formattedNewRial = formatNumber(newRial.toFixed(4));
+            const formattedGhoran = formatNumber(ghoran.toFixed(2));
+            
+            // Display results
+            rialFromToman.innerHTML = `<span class="number-display">${formattedCurrentRial}</span> ریال قدیم`;
+            newRialFromToman.innerHTML = `<span class="number-display">${formattedNewRial}</span> ریال جدید`;
+            ghoranFromToman.innerHTML = `معادل <span class="number-display">${formattedGhoran}</span> قِران`;
+            
+            // Show calculation
+            calculationToman.textContent = 
+                `${formattedCurrentToman} تومان رایج × 10 = ${formattedCurrentRial} ریال قدیم ÷ 10,000 = ${formattedNewRial} ریال جدید`;
+        }
+        
+        // تبدیل ریال قدیم
+        function convertCurrentRial() {
+            if (currentRialInput.value === '' || currentRialInput.value === '0') {
+                newRialResult.textContent = '-';
+                tomanFromCurrent.textContent = '-';
+                ghoranFromCurrent.textContent = '-';
+                calculationCurrent.textContent = '-';
+                return;
+            }
+            
+            const currentRial = parseInputValue(currentRialInput.value);
+            const newRial = currentRial / 10000;
+            const currentToman = currentRial / 10;
+            const ghoran = newRial * 100;
+            
+            // Format results
+            const formattedCurrentRial = formatNumber(currentRial);
+            const formattedNewRial = formatNumber(newRial.toFixed(4));
+            const formattedCurrentToman = formatNumber(currentToman.toFixed(2));
+            const formattedGhoran = formatNumber(ghoran.toFixed(2));
+            
+            // Display results
+            newRialResult.innerHTML = `<span class="number-display">${formattedNewRial}</span> ریال جدید`;
+            tomanFromCurrent.innerHTML = `معادل <span class="number-display">${formattedCurrentToman}</span> تومان رایج`;
+            ghoranFromCurrent.innerHTML = `معادل <span class="number-display">${formattedGhoran}</span> قِران`;
+            
+            // Show calculation
+            calculationCurrent.textContent = 
+                `${formattedCurrentRial} ریال قدیم ÷ 10,000 = ${formattedNewRial} ریال جدید`;
+        }
+        
+        // تبدیل ریال جدید
+        function convertNewRial() {
+            if (newRialInput.value === '' || newRialInput.value === '0') {
+                currentRialResult.textContent = '-';
+                tomanFromNew.textContent = '-';
+                ghoranFromNew.textContent = '-';
+                calculationNew.textContent = '-';
+                return;
+            }
+            
+            const newRial = parseInputValue(newRialInput.value);
+            const currentRial = newRial * 10000;
+            const currentToman = currentRial / 10;
+            const ghoran = newRial * 100;
+            
+            // Format results
+            const formattedNewRial = formatNumber(newRial);
+            const formattedCurrentRial = formatNumber(currentRial);
+            const formattedCurrentToman = formatNumber(currentToman.toFixed(2));
+            const formattedGhoran = formatNumber(ghoran.toFixed(2));
+            
+            // Display results
+            currentRialResult.innerHTML = `<span class="number-display">${formattedCurrentRial}</span> ریال قدیم`;
+            tomanFromNew.innerHTML = `معادل <span class="number-display">${formattedCurrentToman}</span> تومان رایج`;
+            ghoranFromNew.innerHTML = `معادل <span class="number-display">${formattedGhoran}</span> قِران`;
+            
+            // Show calculation
+            calculationNew.textContent = 
+                `${formattedNewRial} ریال جدید × 10,000 = ${formattedCurrentRial} ریال قدیم`;
+        }
+        
+        // بازنشانی همه مقادیر
+        function resetAll() {
+            currentRialInput.value = '';
+            newRialInput.value = '';
+            currentTomanInput.value = '';
+            
+            newRialResult.textContent = '-';
+            currentRialResult.textContent = '-';
+            rialFromToman.textContent = '-';
+            
+            tomanFromCurrent.textContent = '-';
+            tomanFromNew.textContent = '-';
+            newRialFromToman.textContent = '-';
+            
+            ghoranFromCurrent.textContent = '-';
+            ghoranFromNew.textContent = '-';
+            ghoranFromToman.textContent = '-';
+            
+            calculationCurrent.textContent = '-';
+            calculationNew.textContent = '-';
+            calculationToman.textContent = '-';
+        }
+        
+        // Add initial values for demo
+        window.addEventListener('load', function() {
+            // اعمال فرمت روی همه فیلدهای ورودی
+            formatInputOnType(currentRialInput);
+            formatInputOnType(newRialInput);
+            formatInputOnType(currentTomanInput);
+            
+            // تنظیم مقادیر اولیه برای نمایش
+            currentTomanInput.value = '1000';
+            convertCurrentToman();
+            
+            currentRialInput.value = '10000';
+            convertCurrentRial();
+            
+            newRialInput.value = '1';
+            convertNewRial();
+            
+            // اضافه کردن رویداد به دکمه بازنشانی
+            resetBtn.addEventListener('click', resetAll);
+        });
+    </script>
+</body>
+</html>

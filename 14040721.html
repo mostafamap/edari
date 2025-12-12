@@ -1,0 +1,1940 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه‌گر ماموریت روزانه کارمندان در سال 1404</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            min-height: 100vh;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a5276, #2874a6);
+            color: white;
+            padding: 25px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            text-align: center;
+        }
+        
+        .header-link {
+            position: absolute;
+            left: 20px;
+            bottom: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .header-link:hover {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+        }
+        
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: none;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            margin: 0 auto 20px;
+            text-align: right;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-title {
+            color: #2874a6;
+            font-weight: 700;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .btn-calculate {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+        
+        .btn-reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .result-container {
+            background: linear-gradient(135deg, #e8f4fc 0%, #d5e8f7 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #3498db;
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+        
+        .result-title {
+            color: #27ae60;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .result-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .link-box {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #3498db;
+            text-align: right;
+        }
+        
+        .link-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        .link-box a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            display: block;
+        }
+        
+        .link-box i {
+            color: #3498db;
+            margin-left: 10px;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, #1a5276, #2874a6);
+            color: white;
+            padding: 25px 0;
+            margin-top: 40px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+        }
+        
+        .footer-links a {
+            color: #f1c40f;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .logo {
+            font-weight: 800;
+            font-size: 28px;
+            color: #f1c40f;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .valid {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .invalid {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .not-found {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .info-icon {
+            color: #3498db;
+            cursor: help;
+            margin-right: 5px;
+        }
+        .alert-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .number-input {
+            direction: ltr;
+            text-align: left;
+        }
+        
+        .highlight {
+            background-color: #fef9e7;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #d35400;
+        }
+        
+        .adjustment-note {
+            background-color: #fff3cd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            .card {
+                margin-bottom: 15px;
+            }
+            .header-link {
+                position: relative;
+                left: 0;
+                bottom: 0;
+                display: block;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .section-title {
+            color: #1a5276;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .calculation-steps {
+            background-color: #e8f4fc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #bdc3c7;
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .blinking-red {
+            color: red;
+            animation: blink 1.618s linear infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 576px) {
+            .input-group-text {
+                font-size: 0.75rem;
+                white-space: normal;
+                line-height: 1.4;
+                padding: 0.5rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                max-width: 100%;
+            }
+            
+            .input-group-text, 
+            .form-control {
+                width: 100% !important;
+            }
+            
+            .input-group-text {
+                border-radius: 0.375rem 0.375rem 0 0 !important;
+            }
+            
+            .form-control {
+                border-radius: 0 0 0.375rem 0.375rem !important;
+            }
+        }
+
+        @media (max-width: 768px) and (min-width: 577px) {
+            .input-group-text {
+                font-size: 0.8rem;
+                white-space: normal;
+                line-height: 1.4;
+            }
+            
+            .input-group {
+                max-width: 100%;
+            }
+        }
+        
+        /* استایل‌های جدید برای وسط‌چین */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .result-card {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .formula-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        
+        .city-selector {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            text-align: right;
+        }
+        
+        .city-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .city-item:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .city-item.selected {
+            background-color: #e1f5fe;
+            font-weight: bold;
+        }
+        
+        .province-header {
+            background-color: #e9ecef;
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .optional-field {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .form-check {
+            margin-bottom: 10px;
+        }
+        
+        .text-center-important {
+            text-align: center !important;
+        }
+        
+        .min-salary-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+        }
+        
+        .min-salary-card.selected {
+            border-color: #3498db;
+            background-color: #e1f5fe;
+        }
+        
+        .min-salary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        
+        .additional-options {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .form-check {
+            margin-bottom: 10px;
+        }
+        
+        .form-check-label {
+            font-weight: 500;
+        }
+        
+        .additional-extras-row {
+            display: none;
+        }
+        
+        /* استایل‌های بهبود یافته برای عناوین و دکمه‌های رادیویی */
+        .form-label-bold {
+            font-weight: 700;
+            color: #1a5276;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+        
+        .radio-label-bold {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+        
+        .radio-group-bold {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
+        }
+        
+        .radio-group-bold label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .radio-group-bold input[type="radio"] {
+            transform: scale(1.2);
+            margin-left: 5px;
+        }
+        
+        .input-group-bold {
+            margin-bottom: 15px;
+        }
+        
+        .enter-hint {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        /* استایل‌های جدید برای بهینه‌سازی ورود داده */
+        .input-error {
+            border-color: #e74c3c !important;
+            box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25) !important;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-align: right;
+            display: none;
+        }
+        
+        .input-group-prepend {
+            direction: ltr;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- هدر -->
+    <div class="header text-center">
+        <div class="container">
+            <h1 class="mb-3"><i class="bi bi-calculator"></i>محاسبه‌گر ماموریت روزانه کارمندان</h1>
+            <p class="lead">قانون مدیریت خدمات کشوری</p>
+            
+            <!-- لینک کم رنگ در هدر -->
+            <a href="https://kargozin.com/" class="header-link" target="_blank">
+                <i class="bi bi-link-45deg"></i> kargozin.com
+            </a>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <h2 class="text-center">مجله کارگزینی</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header text-center">ورود داده</div>
+            <div class="card-body">
+                <!-- کارت‌های انتخاب حداقل حقوق -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card min-salary-card selected" id="min-salary-card-1" onclick="selectMinSalaryCard(1)">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">حداقل حقوق</h5>
+                                <p class="card-text">42,707,520 ریال</p>
+                                <small class="text-muted">از منظر دولت</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card min-salary-card" id="min-salary-card-2" onclick="selectMinSalaryCard(2)">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">حداقل حکم کارگزینی</h5>
+                                <p class="card-text">130,000,000 ریال</p>
+                                <small class="text-muted">از منظر مجلس</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="min-salary" class="form-label-bold">حداقل حقوق (ریال)</label>
+                            <div class="input-group input-group-bold">
+                                <input type="text" id="min-salary" class="form-control formatted-number" value="42,707,520" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="total-salary" class="form-label-bold">حقوق و مزایای مستمر مشمول کسور (ریال)</label>
+                            <div class="input-group input-group-bold">
+                                <input type="text" id="total-salary" class="form-control formatted-number number-input" 
+                                       placeholder="مبلغ را وارد کنید" 
+                                       inputmode="numeric" 
+                                       pattern="[0-9,]*">
+                                <span class="input-group-text">ریال</span>
+                            </div>
+                            <div class="error-message" id="total-salary-error">لطفاً یک عدد معتبر وارد کنید</div>
+                            <div class="enter-hint">برای محاسبه، کلید Enter و یا دکمه محاسبه را فشار دهید</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="days-count" class="form-label-bold">تعداد روزهای ماموریت</label>
+                            <div class="input-group input-group-bold">
+                                <input type="number" id="days-count" class="form-control number-input" 
+                                       min="1" value="1" 
+                                       inputmode="numeric">
+                            </div>
+                            <div class="error-message" id="days-count-error">لطفاً یک عدد معتبر وارد کنید</div>
+                            <div class="enter-hint">برای محاسبه، کلید Enter و یا دکمه محاسبه را فشار دهید</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label-bold">نوع ماموریت: {ماموریت همراه توقف شبانه را ماموریت با بیتوته می‌گویند.}</label>
+                            <div class="radio-group-bold">
+                                <label class="radio-label-bold">
+                                    <input type="radio" name="mission-type" value="with-overnight" checked> با بیتوته
+                                </label>
+                                <label class="radio-label-bold">
+                                    <input type="radio" name="mission-type" value="without-overnight"> بدون بیتوته
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city-search" class="form-label-bold">استان و شهر محل ماموریت <span class="optional-field">(اختیاری)</span></label>
+                    <input type="text" id="city-search" class="form-control search-box" placeholder="جستجوی استان یا شهر...">
+                    <div class="city-selector" id="city-selector">
+                        <div class="text-center p-3">در حال بارگیری شهرها...</div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="accommodation-field">
+                    <label class="form-label-bold">امکانات اقامتی</label>
+                    <div class="radio-group-bold">
+                        <label class="radio-label-bold">
+                            <input type="radio" name="accommodation" value="no" checked> بدون اقامت رایگان
+                        </label>
+                        <label class="radio-label-bold">
+                            <input type="radio" name="accommodation" value="yes"> با اقامت رایگان
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- چک‌باکس‌های جدید -->
+                <div class="additional-options">
+                    <h5 class="text-center mb-3">گزینه‌های اضافی برای افزایش حق ماموریت</h5>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="road-organization">
+                            <label class="form-check-label" for="road-organization">
+                                کارمند سازمان راهداری و حمل و نقل جاده‌ای (محاسبه با بیتوته)
+                            </label>
+                        </div>
+                      
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="bad-weather">
+                            <label class="form-check-label" for="bad-weather">
+                                آب و هوای بد در روز ماموریت (15% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="snow-removal">
+                            <label class="form-check-label" for="snow-removal">
+                                مکانسین‌ها و رانندگان برفروبی (40% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="difficult-mission">
+                            <label class="form-check-label" for="difficult-mission">
+                                ماموریت دشوار در شرایط غیر عادی (40% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="non-residential">
+                            <label class="form-check-label" for="non-residential">
+                                ماموریت به مناطق غیر مسکونی برای نظارت و مطالعات (25% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="minister">
+                            <label class="form-check-label" for="minister">
+                                وزیر، رئیس سازمان اداری و استخدامی کشور و رئیس سازمان برنامه و بودجه (50% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="teacher">
+                            <label class="form-check-label" for="teacher">
+                                معلمان و مدرسان بدون دریافت حق التدریس (50% اضافه)
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="deputy-minister">
+                            <label class="form-check-label" for="deputy-minister">
+                                معاون وزیر، استاندار (30% اضافه)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-md-12 text-center btn-group">
+                <button id="calculate-btn" class="btn btn-primary btn-lg">محاسبه ماموریت</button>
+                <button class="btn btn-secondary" onclick="showDetails()">توضیحات تکمیلی</button>
+                <button class="btn btn-outline-secondary" onclick="resetForm()">ریست فرم</button>
+            </div>
+        </div>
+        
+        <div id="result-section" class="mt-4" style="display: none;">
+            <div class="card">
+                <div class="card-header text-center">نتایج محاسبه</div>
+                <div class="card-body">
+                    <div class="result-card">
+                        <div class="result-item">
+                            <span>نوع ماموریت:</span>
+                            <span class="result-value" id="mission-type-result"></span>
+                        </div>
+                        <div class="result-item">
+                            <span>تعداد روزهای ماموریت:</span>
+                            <span class="result-value" id="days-count-result"></span>
+                        </div>
+                        <div class="result-item" id="city-group-row" style="display: none;">
+                            <span>محل ماموریت:</span>
+                            <span class="result-value" id="city-group-result"></span>
+                        </div>
+                        <div class="result-item" id="deprivation-percent-row" style="display: none;">
+                            <span>درصد محرومیت:</span>
+                            <span class="result-value" id="deprivation-percent-result"></span>
+                        </div>
+                        <div class="result-item">
+                            <span>حق ماموریت روزانه پایه:</span>
+                            <span class="result-value" id="daily-mission-base-result"></span>
+                        </div>
+                        <div class="result-item" id="deprivation-extra-row" style="display: none;">
+                            <span>مبلغ فوق العاده محرومیت:</span>
+                            <span class="result-value" id="deprivation-extra-result"></span>
+                        </div>
+                        <div class="result-item" id="weather-extra-row" style="display: none;">
+                            <span>اضافه آب و هوای بد (15%):</span>
+                            <span class="result-value" id="weather-extra-result"></span>
+                        </div>
+                        <div class="result-item additional-extras-row" id="additional-extras-row" style="display: none;">
+                            <span>سایر اضافات:</span>
+                            <span class="result-value" id="additional-extras-result"></span>
+                        </div>
+                        <div class="result-item" id="accommodation-deduction-row" style="display: none;">
+                            <span>کسر اقامت رایگان (30%):</span>
+                            <span class="result-value" id="accommodation-deduction-result"></span>
+                        </div>
+                        <div class="result-item" style="border-bottom: none;">
+                            <span>حق ماموریت روزانه نهایی:</span>
+                            <span class="result-value highlight" id="daily-mission-final-result"></span>
+                        </div>
+                        <div class="result-item" style="border-bottom: none; margin-top: 15px;">
+                            <span>کل مبلغ ماموریت:</span>
+                            <span class="result-value highlight" id="total-mission-result"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box mt-3">
+                        <h5 class="text-center">فرمول محاسباتی:</h5>
+                        <p id="formula-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4" id="details" style="display: none;">
+            <div class="col-md-12">
+                <h3 class="text-center">🍀🤞🌻توضیحات تکمیلی🌻🤞🍀</h3>
+                <p class="text-center-important">هیچ برنامه‌ای از خطا و اشتباه مصون نیست و با ارائه نظرات و پیشنهادات سازنده در نسخه‌های بروزرسانی شده عملکرد بهتری خواهد داشت؛ با کلیک بر روی لینک زیر میتوانید توضیحات تکمیلی و مستندات مربوطه را در فضای گوگل درایو مطالعه نمائید.</p>
+                <p style="text-align: center;">
+                    <a href="https://docs.google.com/document/d/1igR_jBlakAlWKYsr2zLV0TEt09Md3VP9/edit?usp=sharing&ouid=108057419551617506264&rtpof=true&sd=true" target="_blank">لینک سایر توضیحات</a>
+                </p>
+
+        <!-- لینک‌های جدید -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title text-center"><i class="bi bi-info-circle"></i>لینک‌های مفید</h4>
+                <div class="row">
+        <div class="mt-4">
+            <a href="https://kargozin.com/%D8%A7%D8%B9%D9%84%D8%A7%D9%85-%D8%B6%D8%B1%DB%8C%D8%A8-%D8%AD%D9%82%D9%88%D9%82-1404-%DA%A9%D8%A7%D8%B1%D9%85%D9%86%D8%AF%D8%A7%D9%86/" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                <i class="bi bi-link me-2"></i> اعلام ضریب حقوق و حداقل حقوق کارمندان در سال ۱۴۰۴
+            </a>
+            <a href="https://kargozin.com/?p=12382" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                <i class="bi bi-link me-2"></i> بخشنامه تعیین حداقل حقوق سال ۱۴۰۴ مشمولین قانون نظام هماهنگ پرداخت کارکنان دولت
+            </a>
+            <a href="https://kargozin.com/%D8%A7%D8%B5%D9%84%D8%A7%D8%AD-%D8%A8%D8%AE%D8%B4%D9%86%D8%A7%D9%85%D9%87-%D8%AA%D8%B9%DB%8C%DB%8C%D9%86-%D8%AD%D8%AF%D8%A7%D9%82%D9%84-%D8%AD%D9%82%D9%88%D9%82-1404/" target="_blank" class="btn btn-outline-primary btn-sm d-block mb-2">
+                <i class="bi bi-link me-2"></i> اصلاح بخشنامه تعیین حداقل حقوق ۱۴۰۴ کارکنان دولت
+            </a>
+        </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="https://kargozin.com/" target="_blank" class="btn btn-primary">
+                                <i class="bi bi-google me-2"></i> مجله کارگزینی
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h4 class="text-center">فرمول‌های محاسباتی:</h4>
+                        <p class="text-center">A=حداقل حقوق مصوب سال 1404 {42.707.520 ریال} در برخی از دستگاه‌های دیگر حداقل حکم کارگزینی سال 1404 و قرارداد منعقده ماهانه حقوق‌بگیران (شاغلان) {۱۳۰,۰۰۰,۰۰۰ ریال}</p>
+                        <p class="text-center">B = حقوق و مزایای مستمر مشمول کسور بازنشستگی کارمند</p>
+                        <p class="formula-box text-center">
+                            حق ماموریت روزانه با بیتوته: (A + B) / 50<br>
+                            حق ماموریت روزانه بدون بیتوته: (A + B) / 100
+                        </p>
+                        
+                        <h4 class="mt-3 text-center">درصد فوق العاده محرومیت:</h4>
+                        <ul class="text-center" style="list-style-position: inside; padding-right: 0;">
+                            <li>گروه 1: 10% فوق العاده روزانه</li>
+                            <li>گروه 2: 15% فوق العاده روزانه</li>
+                            <li>گروه 3: 20% فوق العاده روزانه</li>
+                            <li>گروه 4: 25% فوق العاده روزانه</li>
+                            <li>گروه 5: 30% فوق العاده روزانه</li>
+                            <li>گروه 6: 35% فوق العاده روزانه</li>
+                            <li>گروه 7: 40% فوق العاده روزانه</li>
+                            <li>گروه 8: 45% فوق العاده روزانه</li>
+                            <li>گروه 9: 50% فوق العاده روزانه</li>
+                        </ul>
+                        
+
+                        <h4 class="mt-4 text-center">اقامت رایگان:</h4>
+                        <p class="text-center">در صورتی که محل اقامت مأمور اعزامی به صورت رایگان از سوی دستگاه‌های دولتی ذیربط فراهم گردد، به میزان 30% از حق ماموریت روزانه نهایی (شامل پایه، فوق العاده محرومیت و اضافه آب و هوا) کسر می‌گردد.</p>
+
+                        <h4 class="mt-4 text-center">بیتوته:</h4>
+                        <p class="text-center">توقف شبانه در ماموریت را، ماموریت با بیتوته می‌گویند.</p>
+                         
+                        <h4 class="mt-4 text-center">کارمندان سازمان راهداری:</h4>
+                        <p class="text-center">در صورتی که مامور از کارمندان سازمان راهداری و حمل و نقل جاده‌ای باشد، محاسبه ماموریت با بیتوته و بدون بیتوته به صورت با بیتوته محاسبه میگردد.</p>
+                        
+                        <h4 class="mt-4 text-center">آب و هوای بد:</h4>
+                        <p class="text-center">در صورتی که ماموریت در روزی با آب و هوای بد منطقه ماموریت همراه باشد 15% به حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">مکانسین‌ها و رانندگان برفروبی:</h4>
+                        <p class="text-center">به حق ماموریت مکانسین‌ها و رانندگان برفروبی 40% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">ماموریت دشوار در شرایط غیر عادی:</h4>
+                        <p class="text-center">به حق ماموریت برای اعزام به ماموریتهای دشوار در شرایط غیر عادی 40% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">ماموریت به مناطق غیر مسکونی برای نظارت و مطالعات:</h4>
+                        <p class="text-center">به حق ماموریت برای اعزام به مناطق غیر مسکونی جهت نظارت و مطالعات به تشخیص بالاترین مقام دستگاه 25% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">وزیر، رئیس سازمان اداری و استخدامی کشور و رئیس سازمان برنامه و بودجه:</h4>
+                        <p class="text-center">به حق ماموریت وزیر، رئیس سازمان اداری و استخدامی و رئیس سازمان برنامه و بودجه 50% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">معلمان و مدرسان بدون دریافت حق التدریس:</h4>
+                        <p class="text-center">به حق ماموریت معلمان و مدرسانی که برای انجام تدریس مشروط به عدم دریافت حق التدریس و حداقل 5 ساعت تدریس 50% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+                       
+                        <h4 class="mt-4 text-center">معاون وزیر، استاندار:</h4>
+                        <p class="text-center">به حق ماموریت معاون وزیر و استاندار 30% افزایش حق ماموریت روزانه اضافه میگردد.</p>
+
+                        <h4 class="mt-4 text-center">اقلام مشمول کسور بازنشستگی:</h4>
+                        <p class="text-center">حق شغل، فوق العاده مدیریت، حق شاغل، تفاوت تطبیق ماده (78)، فوق العاده شغل، فوق‌العاده ویژه، فوق العاده جذب هیات امنا، فوق‌العاده ایثارگری، خدمت در مناطق جنگی، فوق‌العاده نشان‌های دولتی، فوق‌العاده سختی شرایط محیط کار، تفاوت بند (ی) تبصره (12) قانون بودجه 98 (بندهای موسوم به بندهای دوقلو)، تفاوت جزء (1) بند (الف) تبصره (12) قانون بودجه 97 (بندهای موسوم به بندهای دوقلو)، پرداختی موضوع جزء (۱) بند (الف) تبصره (12) قانون بودجه سال 1404، فوق العاده تخصص ماده (217) کارکنان امور مالیاتی، فوق العاده رتبه‌بندی معلمان، ترمیم حقوق، فوق العاده سمت قضایی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- فوتر -->
+    <footer class="footer text-center mt-5">
+        <div class="container">
+            <p class="mb-3">🍀🤞🌻 توسعه‌یافته توسط <span class="logo">مجله کارگزینی</span> | نسخه 1404/07/21 🌻🤞🍀</p>
+            <div class="footer-links mb-3">
+                <a href="mailto:mustafa.alimohammadi@gmail.com">
+                    <i class="bi bi-envelope me-1"></i> توسعه دهنده: مصطفی علیمحمدی
+                </a>
+                <a href="https://kargozin.com/" target="_blank">
+                    <i class="bi bi-globe me-1"></i> مجله کارگزینی/سامانه اداری و استخدامی 
+                </a>
+                <a href="https://t.me/+W10Ae66GdN40MDg0" target="_blank">
+                    <i class="bi bi-telegram me-1"></i> گروه تبادل نظر مجله کارگزینی
+                </a>
+                <a href="http://t.me/+eRSSofhaSpo4ZGNk" target="_blank">
+                    <i class="bi bi-telegram me-1"></i> کانال تلگرام مجله کارگزینی
+                </a>
+            </div>
+            <p>© کلیه حقوق این محاسبه‌گر برای سایت مجله کارگزینی محفوظ است</p>
+        </div>
+    </footer>
+
+    <script>
+        // متغیرهای مورد نیاز
+        const minSalary1404 = 42707520; // حداقل حقوق
+        const minSalaryContract = 130000000; // حداقل حکم کارگزینی
+        let selectedCity = null;
+        let citiesData = [];
+        let citiesLoaded = false;
+        let selectedMinSalaryCard = 1; // 1 برای حداقل حقوق مصوب، 2 برای حداقل حکم کارگزینی
+        
+        // تابع تبدیل اعداد فارسی به انگلیسی
+        function convertPersianToEnglishNumbers(str) {
+            if (!str) return '';
+            
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            
+            let result = str.toString();
+            
+            // تبدیل اعداد فارسی
+            for (let i = 0; i < 10; i++) {
+                result = result.replace(new RegExp(persianNumbers[i], 'g'), englishNumbers[i]);
+            }
+            
+            // تبدیل اعداد عربی
+            for (let i = 0; i < 10; i++) {
+                result = result.replace(new RegExp(arabicNumbers[i], 'g'), englishNumbers[i]);
+            }
+            
+            return result;
+        }
+        
+        // تابع اعتبارسنجی ورودی عددی
+        function validateNumberInput(inputElement, errorElement) {
+            const value = inputElement.value;
+            const cleanValue = convertPersianToEnglishNumbers(value).replace(/[^\d]/g, '');
+            
+            if (cleanValue === '' || isNaN(cleanValue) || parseInt(cleanValue) <= 0) {
+                inputElement.classList.add('input-error');
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                inputElement.classList.remove('input-error');
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+        
+        // تابع انتخاب کارت حداقل حقوق
+        function selectMinSalaryCard(cardNumber) {
+            selectedMinSalaryCard = cardNumber;
+            
+            // حذف کلاس selected از همه کارت‌ها
+            document.getElementById('min-salary-card-1').classList.remove('selected');
+            document.getElementById('min-salary-card-2').classList.remove('selected');
+            
+            // اضافه کردن کلاس selected به کارت انتخاب شده
+            document.getElementById(`min-salary-card-${cardNumber}`).classList.add('selected');
+            
+            // به‌روزرسانی مقدار فیلد حداقل حقوق
+            const minSalaryField = document.getElementById('min-salary');
+            if (cardNumber === 1) {
+                minSalaryField.value = formatNumber(minSalary1404);
+            } else {
+                minSalaryField.value = formatNumber(minSalaryContract);
+            }
+        }
+        
+        // تابع فرمت‌دهی اعداد با جداکننده هزارگان
+        function formatNumber(number) {
+            if (number === null || number === undefined || isNaN(number)) return '';
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // تابع تبدیل اعداد فرمت شده به عدد خالص
+        function parseFormattedNumber(formattedNumber) {
+            if (!formattedNumber) return 0;
+            
+            // تبدیل اعداد فارسی و عربی به انگلیسی
+            const cleanNumber = convertPersianToEnglishNumbers(formattedNumber);
+            
+            // حذف همه کاراکترهای غیرعددی به جز علامت منفی برای اعداد منفی
+            const numericString = cleanNumber.replace(/[^\d-]/g, '');
+            
+            return parseFloat(numericString) || 0;
+        }
+
+        // تابع بارگذاری داده‌های شهرها
+        function loadCitiesData() {
+            if (citiesLoaded) return;
+            
+            // نمایش وضعیت بارگذاری
+            const citySelector = document.getElementById('city-selector');
+            citySelector.innerHTML = '<div class="text-center p-3">در حال بارگیری شهرها...</div>';
+            citySelector.classList.add('loading');
+            citySelector.style.display = 'block';
+            
+
+            // شبیه‌سازی تاخیر بارگذاری
+            setTimeout(() => {
+
+                citiesData = [
+            {province: "آذربایجان شرقی", city: "سراب", section: "مركزی", group: 3, percent: 20},
+            {province: "آذربایجان شرقی", city: "مراغه", section: "مركزی", group: 3, percent: 20},
+            {province: "آذربایجان شرقی", city: "مرند", section: "مركزی", group: 3, percent: 20},
+            {province: "آذربایجان شرقی", city: "تبریز", section: "آذرشهر", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "تبریز", section: "اسكو", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "بستان آباد", section: "تیكمه داش", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "بستان آباد", section: "مركزی", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "شبستر", section: "مركزی", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "شبستر", section: "صوفیان", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "هریس", section: "مركزی", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "هریس", section: "خواجه", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "مرند", section: "جلفا", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "میانه", section: "مركزی", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "هشترود", section: "مركزی", group: 4, percent: 25},
+            {province: "آذربایجان شرقی", city: "اهر", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "بناب", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "مراغه", section: "عجب شیر", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "بناب", section: "ملكان", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "میانه", section: "تركمنچای", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "میانه", section: "كاغذكنان", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "هشترود", section: "چاراویماق", group: 5, percent: 30},
+            {province: "آذربایجان شرقی", city: "كلیبر", section: "مركزی", group: 6, percent: 35},
+            {province: "آذربایجان شرقی", city: "اهر", section: "ورزقان", group: 6, percent: 35},
+            {province: "آذربایجان شرقی", city: "اهر", section: "هوراند", group: 6, percent: 35},
+            {province: "آذربایجان شرقی", city: "كلیبر", section: "خداآفرین", group: 8, percent: 45},
+            {province: "آذربایجان غربی", city: "ارومیه", section: "مركزی", group: 1, percent: 10},
+            {province: "آذربایجان غربی", city: "ارومیه", section: "انزل", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "خوی", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "سلماس", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "ماكو", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "بوكان", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "مهاباد", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "میاندوآب", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "نقده", section: "مركزی", group: 5, percent: 30},
+            {province: "آذربایجان غربی", city: "پیرانشهر", section: "مركزی", group: 6, percent: 35},
+            {province: "آذربایجان غربی", city: "ماكو", section: "پلدشت", group: 6, percent: 35},
+            {province: "آذربایجان غربی", city: "ماكو", section: "سیه چشمه", group: 6, percent: 35},
+            {province: "آذربایجان غربی", city: "نقده", section: "اشنویه", group: 6, percent: 35},
+            {province: "آذربایجان غربی", city: "خوی", section: "چایپاره", group: 7, percent: 40},
+            {province: "آذربایجان غربی", city: "سردشت", section: "مركزی", group: 7, percent: 40},
+            {province: "آذربایجان غربی", city: "تكاب", section: "مركزی", group: 7, percent: 40},
+            {province: "آذربایجان غربی", city: "شاهین دژ", section: "مركزی", group: 7, percent: 40},
+            {province: "آذربایجان غربی", city: "ارومیه", section: "سیلوانه", group: 8, percent: 45},
+            {province: "آذربایجان غربی", city: "ارومیه", section: "صومای برادوست", group: 8, percent: 45},
+            {province: "اردبیل", city: "اردبیل", section: "مركزی", group: 3, percent: 20},
+            {province: "اردبیل", city: "خلخال", section: "مركزی", group: 3, percent: 20},
+            {province: "اردبیل", city: "گرمی", section: "مركزی", group: 3, percent: 20},
+            {province: "اردبیل", city: "گرمی", section: "انگوت", group: 3, percent: 20},
+            {province: "اردبیل", city: "مشگین شهر", section: "مركزی", group: 3, percent: 20},
+            {province: "اردبیل", city: "پارس آباد", section: "مركزی", group: 4, percent: 25},
+            {province: "اردبیل", city: "پارس آباد", section: "اصلاندوز", group: 4, percent: 25},
+            {province: "اردبیل", city: "بیله سوار", section: "مركزی", group: 4, percent: 25},
+            {province: "اردبیل", city: "بیله سوار", section: "قشلاق دشت", group: 4, percent: 25},
+            {province: "اردبیل", city: "خلخال", section: "شاهرود", group: 5, percent: 30},
+            {province: "اردبیل", city: "اردبیل", section: "نمین", group: 6, percent: 35},
+            {province: "اردبیل", city: "اردبیل", section: "نیر", group: 6, percent: 35},
+            {province: "اردبیل", city: "خلخال", section: "خورش رستم", group: 8, percent: 45},
+            {province: "اردبیل", city: "خلخال", section: "سنجید", group: 8, percent: 45},
+            {province: "اصفهان", city: "خوانسار", section: "مركزی", group: 2, percent: 15},
+            {province: "اصفهان", city: "كاشان", section: "مركزی", group: 2, percent: 15},
+            {province: "اصفهان", city: "گلپایگان", section: "مركزی", group: 2, percent: 15},
+            {province: "اصفهان", city: "نایین", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "نجف آباد", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "نطنز", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "برخوار و میمه", section: "برخوار", group: 3, percent: 20},
+            {province: "اصفهان", city: "سمیرم", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "فریدن", section: "چادگان", group: 3, percent: 20},
+            {province: "اصفهان", city: "فریدن", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "فلاورجان", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "شهرضا", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "لنجان", section: "مركزی", group: 3, percent: 20},
+            {province: "اصفهان", city: "اصفهان", section: "كوهپایه", group: 4, percent: 25},
+            {province: "اصفهان", city: "برخوار و میمه", section: "میمه", group: 4, percent: 25},
+            {province: "اصفهان", city: "خمینی شهر", section: "مركزی", group: 4, percent: 25},
+            {province: "اصفهان", city: "شهرضا", section: "سمیرم سفلی", group: 4, percent: 25},
+            {province: "اصفهان", city: "كاشان", section: "آران و بیدگل", group: 4, percent: 25},
+            {province: "اصفهان", city: "كاشان", section: "قمصر", group: 4, percent: 25},
+            {province: "اصفهان", city: "مباركه", section: "مركزی", group: 4, percent: 25},
+            {province: "اصفهان", city: "نجف آباد", section: "تیران و كرون", group: 4, percent: 25},
+            {province: "اصفهان", city: "اردستان", section: "مركزی", group: 5, percent: 30},
+            {province: "اصفهان", city: "اصفهان", section: "جرقویه", group: 5, percent: 30},
+            {province: "اصفهان", city: "فریدون شهر", section: "مركزی", group: 5, percent: 30},
+            {province: "اصفهان", city: "نایین", section: "انارك", group: 7, percent: 40},
+            {province: "اصفهان", city: "نایین", section: "خوروبیابانك", group: 8, percent: 45},
+            {province: "ایلام", city: "ایلام", section: "مركزی", group: 5, percent: 30},
+            {province: "ایلام", city: "دره شهر", section: "مركزی", group: 5, percent: 30},
+            {province: "ایلام", city: "دهلران", section: "مركزی", group: 5, percent: 30},
+            {province: "ایلام", city: "شیروان و چرداول", section: "مركزی", group: 5, percent: 30},
+            {province: "ایلام", city: "مهران", section: "مركزی", group: 5, percent: 30},
+            {province: "ایلام", city: "دره شهر", section: "آبدانان", group: 6, percent: 35},
+            {province: "ایلام", city: "دره شهر", section: "بدره", group: 6, percent: 35},
+            {province: "ایلام", city: "دهلران", section: "زرین آباد", group: 6, percent: 35},
+            {province: "ایلام", city: "مهران", section: "ارگوازی", group: 6, percent: 35},
+            {province: "ایلام", city: "مهران", section: "صالح آباد", group: 6, percent: 35},
+            {province: "ایلام", city: "ایلام", section: "چوار", group: 7, percent: 40},
+            {province: "ایلام", city: "ایلام", section: "موسیان", group: 8, percent: 45},
+            {province: "بوشهر", city: "بوشهر", section: "مركزی", group: 4, percent: 25},
+            {province: "بوشهر", city: "دشتستان", section: "مركزی", group: 5, percent: 30},
+            {province: "بوشهر", city: "دشتی", section: "مركزی", group: 5, percent: 30},
+            {province: "بوشهر", city: "كنگان", section: "مركزی", group: 5, percent: 30},
+            {province: "بوشهر", city: "تنگستان", section: "مركزی", group: 6, percent: 35},
+            {province: "بوشهر", city: "دشتستان", section: "سعدآباد", group: 6, percent: 35},
+            {province: "بوشهر", city: "دشتستان", section: "شبانكاره", group: 6, percent: 35},
+            {province: "بوشهر", city: "دشتی", section: "كاكی", group: 6, percent: 35},
+            {province: "بوشهر", city: "گناوه", section: "مركزی", group: 6, percent: 35},
+            {province: "بوشهر", city: "تنگستان", section: "ساحلی", group: 7, percent: 40},
+            {province: "بوشهر", city: "دیر", section: "مركزی", group: 7, percent: 40},
+            {province: "بوشهر", city: "گناوه", section: "دیلم", group: 7, percent: 40},
+            {province: "بوشهر", city: "دیر", section: "بردخون", group: 8, percent: 45},
+            {province: "بوشهر", city: "كنگان", section: "جم", group: 8, percent: 45},
+            {province: "بوشهر", city: "بوشهر", section: "خارك", group: 9, percent: 50},
+            {province: "بوشهر", city: "گناوه", section: "ریگ", group: 9, percent: 50},
+            {province: "تهران", city: "ری", section: "كهریزك", group: 1, percent: 10},
+            {province: "تهران", city: "ری", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "شمیرانات", section: "رودبار قصران", group: 1, percent: 10},
+            {province: "تهران", city: "كرج", section: "اشتهارد", group: 1, percent: 10},
+            {province: "تهران", city: "شهریار", section: "رباط كریم", group: 1, percent: 10},
+            {province: "تهران", city: "ساوجبلاغ", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "شهریار", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "كرج", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "قم", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "قزوین", section: "مركزی", group: 1, percent: 10},
+            {province: "تهران", city: "دماوند", section: "مركزی", group: 2, percent: 15},
+            {province: "تهران", city: "ورامین", section: "پاك دشت", group: 2, percent: 15},
+            {province: "تهران", city: "ورامین", section: "جوادآباد", group: 2, percent: 15},
+            {province: "تهران", city: "ورامین", section: "مركزی", group: 2, percent: 15},
+            {province: "تهران", city: "دماوند", section: "فیروزكوه", group: 3, percent: 20},
+            {province: "تهران", city: "اسلام شهر", section: "مركزی", group: 3, percent: 20},
+            {province: "تهران", city: "شمیرانات", section: "لواسانات", group: 3, percent: 20},
+            {province: "تهران", city: "ساوجبلاغ", section: "طالقان", group: 3, percent: 20},
+            {province: "تهران", city: "قم", section: "جعفرآباد", group: 3, percent: 20},
+            {province: "تهران", city: "ری", section: "فشاپویه", group: 4, percent: 25},
+            {province: "تهران", city: "قم", section: "خلجستان", group: 4, percent: 25},
+            {province: "تهران", city: "قزوین", section: "آبیك", group: 4, percent: 25},
+            {province: "تهران", city: "قزوین", section: "بوئین زهرا", group: 4, percent: 25},
+            {province: "تهران", city: "قزوین", section: "آوج", group: 5, percent: 30},
+            {province: "تهران", city: "قزوین", section: "رودبار الموت", group: 6, percent: 35},
+            {province: "تهران", city: "قزوین", section: "طارم سفلی", group: 6, percent: 35},
+            {province: "چهارمحال و بختیاری", city: "شهركرد", section: "مركزی", group: 2, percent: 15},
+            {province: "چهارمحال و بختیاری", city: "بروجن", section: "كندمان", group: 4, percent: 25},
+            {province: "چهارمحال و بختیاری", city: "بروجن", section: "مركزی", group: 4, percent: 25},
+            {province: "چهارمحال و بختیاری", city: "شهركرد", section: "كیار", group: 4, percent: 25},
+            {province: "چهارمحال و بختیاری", city: "فارسان", section: "مركزی", group: 5, percent: 30},
+            {province: "چهارمحال و بختیاری", city: "لردگان", section: "مركزی", group: 5, percent: 30},
+            {province: "چهارمحال و بختیاری", city: "اردل", section: "مركزی", group: 6, percent: 35},
+            {province: "چهارمحال و بختیاری", city: "اردل", section: "میانكوه", group: 6, percent: 35},
+            {province: "چهارمحال و بختیاری", city: "فارسان", section: "شورآب", group: 7, percent: 40},
+            {province: "خراسان", city: "نیشابور", section: "مركزی", group: 2, percent: 15},
+            {province: "خراسان", city: "بجنورد", section: "مركزی", group: 3, percent: 20},
+            {province: "خراسان", city: "مشهد", section: "احمدآباد", group: 3, percent: 20},
+            {province: "خراسان", city: "مشهد", section: "طرقبه", group: 3, percent: 20},
+            {province: "خراسان", city: "فریمان", section: "مركزی", group: 3, percent: 20},
+            {province: "خراسان", city: "فریمان", section: "قلندرآباد", group: 3, percent: 20},
+            {province: "خراسان", city: "مشهد", section: "كلات", group: 3, percent: 20},
+            {province: "خراسان", city: "بیرجند", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "تربت حیدریه", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "تربت جام", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "درگز", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "سبزوار", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "شیروان", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "قوچان", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "كاشمر", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "گناباد", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "چناران", section: "مركزی", group: 4, percent: 25},
+            {province: "خراسان", city: "چناران", section: "گلبهار", group: 4, percent: 25},
+            {province: "خراسان", city: "نیشابور", section: "زبرخان", group: 4, percent: 25},
+            {province: "خراسان", city: "اسفراین", section: "مركزی", group: 5, percent: 30},
+            {province: "خراسان", city: "تایباد", section: "مركزی", group: 5, percent: 30},
+            {province: "خراسان", city: "تربت حیدریه", section: "فیض آباد", group: 5, percent: 30},
+            {province: "خراسان", city: "تربت جام", section: "صالح آباد", group: 5, percent: 30},
+            {province: "خراسان", city: "درگز", section: "چاپشلو", group: 5, percent: 30},
+            {province: "خراسان", city: "درگز", section: "لطف آباد", group: 5, percent: 30},
+            {province: "خراسان", city: "فردوس", section: "مركزی", group: 5, percent: 30},
+            {province: "خراسان", city: "قائنات", section: "مركزی", group: 5, percent: 30},
+            {province: "خراسان", city: "كاشمر", section: "خلیل آباد", group: 5, percent: 30},
+            {province: "خراسان", city: "كاشمر", section: "كوه سرخ", group: 5, percent: 30},
+            {province: "خراسان", city: "سرخس", section: "مركزی", group: 5, percent: 30},
+            {province: "خراسان", city: "سرخس", section: "مرزداران", group: 5, percent: 30},
+            {province: "خراسان", city: "نیشابور", section: "تخت جلگه", group: 5, percent: 30},
+            {province: "خراسان", city: "نیشابور", section: "سرولایت", group: 5, percent: 30},
+            {province: "خراسان", city: "بجنورد", section: "جاجرم", group: 6, percent: 35},
+            {province: "خراسان", city: "بجنورد", section: "رازوجرگلان", group: 6, percent: 35},
+            {province: "خراسان", city: "بجنورد", section: "مانه و سملقان", group: 6, percent: 35},
+            {province: "خراسان", city: "سبزوار", section: "جغتای", group: 6, percent: 35},
+            {province: "خراسان", city: "سبزوار", section: "داورزن", group: 6, percent: 35},
+            {province: "خراسان", city: "طبس", section: "مركزی", group: 6, percent: 35},
+            {province: "خراسان", city: "بیرجند", section: "خوسف", group: 7, percent: 40},
+            {province: "خراسان", city: "بیرجند", section: "درمیان", group: 7, percent: 40},
+            {province: "خراسان", city: "تربت حیدریه", section: "بایك", group: 7, percent: 40},
+            {province: "خراسان", city: "تربت حیدریه", section: "رشتخوار", group: 7, percent: 40},
+            {province: "خراسان", city: "درگز", section: "نوخندان", group: 7, percent: 40},
+            {province: "خراسان", city: "سبزوار", section: "ششتمد", group: 7, percent: 40},
+            {province: "خراسان", city: "فردوس", section: "بشرویه", group: 7, percent: 40},
+            {province: "خراسان", city: "فردوس", section: "سرایان", group: 7, percent: 40},
+            {province: "خراسان", city: "قوچان", section: "باجگیران", group: 7, percent: 40},
+            {province: "خراسان", city: "گناباد", section: "بجستان", group: 7, percent: 40},
+            {province: "خراسان", city: "اسفراین", section: "بام وصفی آباد", group: 8, percent: 45},
+            {province: "خراسان", city: "نهبندان", section: "مركزی", group: 8, percent: 45},
+            {province: "خراسان", city: "نهبندان", section: "شوسف", group: 8, percent: 45},
+            {province: "خراسان", city: "طبس", section: "دستكردان", group: 8, percent: 45},
+            {province: "خراسان", city: "كاشمر", section: "بردسكن", group: 8, percent: 45},
+            {province: "خراسان", city: "خواف", section: "مركزی", group: 9, percent: 50},
+            {province: "خراسان", city: "تربت حیدریه", section: "كدكن", group: 9, percent: 50},
+            {province: "خراسان", city: "خواف", section: "سنگان", group: 9, percent: 50},
+            {province: "خراسان", city: "خواف", section: "جلگه زوزن", group: 9, percent: 50},
+            {province: "خوزستان", city: "اهواز", section: "مركزی", group: 1, percent: 10},
+            {province: "خوزستان", city: "آبادان", section: "مركزی", group: 5, percent: 30},
+            {province: "خوزستان", city: "اندیمشك", section: "مركزی", group: 5, percent: 30},
+            {province: "خوزستان", city: "رامهرمز", section: "مركزی", group: 5, percent: 30},
+            {province: "خوزستان", city: "شوشتر", section: "مركزی", group: 5, percent: 30},
+            {province: "خوزستان", city: "آبادان", section: "اروندكنار", group: 6, percent: 35},
+            {province: "خوزستان", city: "ایذه", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "بندرماهشهر", section: "بندرامام خمینی", group: 6, percent: 35},
+            {province: "خوزستان", city: "بندرماهشهر", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "بهبهان", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "خرمشهر", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "دزفول", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "رامهرمز", section: "رامشیر", group: 6, percent: 35},
+            {province: "خوزستان", city: "شادگان", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "شوشتر", section: "گتوند", group: 6, percent: 35},
+            {province: "خوزستان", city: "مسجدسلیمان", section: "مركزی", group: 6, percent: 35},
+            {province: "خوزستان", city: "اندیمشك", section: "الوارگرمسیری", group: 7, percent: 40},
+            {province: "خوزستان", city: "بندرماهشهر", section: "هندیجان", group: 7, percent: 40},
+            {province: "خوزستان", city: "بهبهان", section: "آغاجاری", group: 7, percent: 40},
+            {province: "خوزستان", city: "خرمشهر", section: "مینو", group: 7, percent: 40},
+            {province: "خوزستان", city: "شوش", section: "مركزی", group: 7, percent: 40},
+            {province: "خوزستان", city: "شوش", section: "شاوور", group: 7, percent: 40},
+            {province: "خوزستان", city: "مسجدسلیمان", section: "اندیكا", group: 7, percent: 40},
+            {province: "خوزستان", city: "رامهرمز", section: "هفتگل", group: 7, percent: 40},
+            {province: "خوزستان", city: "دشت آزادگان", section: "مركزی", group: 8, percent: 45},
+            {province: "خوزستان", city: "دشت آزادگان", section: "هویزه", group: 8, percent: 45},
+            {province: "خوزستان", city: "باغ ملك", section: "صیدون", group: 9, percent: 50},
+            {province: "خوزستان", city: "باغ ملك", section: "مركزی باغ ملك", group: 9, percent: 50},
+            {province: "خوزستان", city: "ایذه", section: "دهدز", group: 9, percent: 50},
+            {province: "خوزستان", city: "بهبهان", section: "زیدون", group: 9, percent: 50},
+            {province: "خوزستان", city: "دزفول", section: "سردشت", group: 9, percent: 50},
+            {province: "خوزستان", city: "دشت آزادگان", section: "بستان", group: 9, percent: 50},
+            {province: "زنجان", city: "زنجان", section: "مركزی", group: 1, percent: 10},
+            {province: "زنجان", city: "ابهر", section: "مركزی", group: 3, percent: 20},
+            {province: "زنجان", city: "تاكستان", section: "مركزی", group: 3, percent: 20},
+            {province: "زنجان", city: "خدابنده", section: "مركزی", group: 4, percent: 25},
+            {province: "زنجان", city: "ابهر", section: "سلطانیه", group: 5, percent: 30},
+            {province: "زنجان", city: "خدابنده", section: "افشار", group: 5, percent: 30},
+            {province: "زنجان", city: "زنجان", section: "طارم علیا", group: 6, percent: 35},
+            {province: "زنجان", city: "زنجان", section: "ماه نشان", group: 6, percent: 35},
+            {province: "سمنان", city: "سمنان", section: "مركزی", group: 1, percent: 10},
+            {province: "سمنان", city: "شاهرود", section: "مركزی", group: 1, percent: 10},
+            {province: "سمنان", city: "دامغان", section: "مركزی", group: 2, percent: 15},
+            {province: "سمنان", city: "سمنان", section: "مهدی شهر", group: 4, percent: 25},
+            {province: "سمنان", city: "گرمسار", section: "مركزی", group: 4, percent: 25},
+            {province: "سمنان", city: "دامغان", section: "امیرآباد", group: 5, percent: 30},
+            {province: "سمنان", city: "شاهرود", section: "بسطام", group: 5, percent: 30},
+            {province: "سمنان", city: "شاهرود", section: "بیارجمند", group: 5, percent: 30},
+            {province: "سمنان", city: "شاهرود", section: "میامی", group: 5, percent: 30},
+            {province: "سمنان", city: "گرمسار", section: "ایوانكی", group: 5, percent: 30},
+            {province: "سیستان و بلوچستان", city: "زاهدان", section: "مركزی", group: 3, percent: 20},
+            {province: "سیستان و بلوچستان", city: "ایرانشهر", section: "مركزی", group: 5, percent: 30},
+            {province: "سیستان و بلوچستان", city: "زابل", section: "مركزی", group: 5, percent: 30},
+            {province: "سیستان و بلوچستان", city: "سراوان", section: "مركزی", group: 5, percent: 30},
+            {province: "سیستان و بلوچستان", city: "چابهار", section: "مركزی", group: 7, percent: 40},
+            {province: "سیستان و بلوچستان", city: "خاش", section: "مركزی", group: 7, percent: 40},
+            {province: "سیستان و بلوچستان", city: "زاهدان", section: "میرجاوه", group: 7, percent: 40},
+            {province: "سیستان و بلوچستان", city: "ایرانشهر", section: "بمپور", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "ایرانشهر", section: "راسك و فیروزآباد", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "ایرانشهر", section: "سرباز", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "چابهار", section: "دشتیاری", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "نیك شهر", section: "فنوج", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "نیك شهر", section: "مركزی", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "نیك شهر", section: "بنت", group: 8, percent: 45},
+            {province: "سیستان و بلوچستان", city: "ایرانشهر", section: "بزمان", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "نیك شهر", section: "قصرقند", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "نیك شهر", section: "لاشار", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "خاش", section: "نوك آباد", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "زابل", section: "پشت آب", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "زابل", section: "شیب آب", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "زابل", section: "میان كنگی", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "زابل", section: "شهركی و ناروئی", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "زاهدان", section: "نصرت آباد", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "سراوان", section: "جالق", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "سراوان", section: "زابلی", group: 9, percent: 50},
+            {province: "سیستان و بلوچستان", city: "سراوان", section: "سیب و سوران", group: 9, percent: 50},
+            {province: "فارس", city: "فسا", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "فیروزآباد", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "كازرون", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "لار", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "مرودشت", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "نی ریز", section: "مركزی", group: 4, percent: 25},
+            {province: "فارس", city: "آباده", section: "مركزی", group: 5, percent: 30},
+            {province: "فارس", city: "استهبان", section: "مركزی", group: 5, percent: 30},
+            {province: "فارس", city: "جهرم", section: "مركزی", group: 5, percent: 30},
+            {province: "فارس", city: "شیراز", section: "زرقان", group: 5, percent: 30},
+            {province: "فارس", city: "شیراز", section: "سروستان", group: 5, percent: 30},
+            {province: "فارس", city: "شیراز", section: "كربال", group: 5, percent: 30},
+            {province: "فارس", city: "مرودشت", section: "ارسنجان", group: 5, percent: 30},
+            {province: "فارس", city: "مرودشت", section: "سعادت آباد", group: 5, percent: 30},
+            {province: "فارس", city: "ممسنی", section: "مركزی", group: 5, percent: 30},
+            {province: "فارس", city: "داراب", section: "مركزی", group: 6, percent: 35},
+            {province: "فارس", city: "فیروزآباد", section: "فراشبند", group: 6, percent: 35},
+            {province: "فارس", city: "كازرون", section: "خشت و كمارج", group: 6, percent: 35},
+            {province: "فارس", city: "آباده", section: "بوانات", group: 6, percent: 35},
+            {province: "فارس", city: "اقلید", section: "مركزی", group: 6, percent: 35},
+            {province: "فارس", city: "جهرم", section: "سیمكان", group: 6, percent: 35},
+            {province: "فارس", city: "استهبان", section: "رونیز", group: 7, percent: 40},
+            {province: "فارس", city: "جهرم", section: "خفر", group: 7, percent: 40},
+            {province: "فارس", city: "جهرم", section: "كردیان", group: 7, percent: 40},
+            {province: "فارس", city: "سپیدان", section: "مركزی", group: 7, percent: 40},
+            {province: "فارس", city: "فسا", section: "ششده و قره بلاغ", group: 7, percent: 40},
+            {province: "فارس", city: "فسا", section: "شیب كوه", group: 7, percent: 40},
+            {province: "فارس", city: "فسا", section: "نوبندگان", group: 7, percent: 40},
+            {province: "فارس", city: "فیروزآباد", section: "قیروكارزین", group: 7, percent: 40},
+            {province: "فارس", city: "كازرون", section: "كوهمره", group: 7, percent: 40},
+            {province: "فارس", city: "لامرد", section: "مركزی", group: 7, percent: 40},
+            {province: "فارس", city: "لامرد", section: "اشكنان", group: 7, percent: 40},
+            {province: "فارس", city: "لامرد", section: "علاء مرودشت", group: 7, percent: 40},
+            {province: "فارس", city: "لامرد", section: "مهر", group: 7, percent: 40},
+            {province: "فارس", city: "لامرد", section: "گله دار", group: 7, percent: 40},
+            {province: "فارس", city: "نی ریز", section: "آباده طشك", group: 7, percent: 40},
+            {province: "فارس", city: "لار", section: "اوز", group: 8, percent: 45},
+            {province: "فارس", city: "لار", section: "جویم", group: 8, percent: 45},
+            {province: "فارس", city: "ممسنی", section: "ماهورمیلانی", group: 8, percent: 45},
+            {province: "فارس", city: "نی ریز", section: "پشت كوه", group: 8, percent: 45},
+            {province: "كردستان", city: "بانه", section: "مركزی", group: 4, percent: 25},
+            {province: "كردستان", city: "بیجار", section: "مركزی", group: 4, percent: 25},
+            {province: "كردستان", city: "سقز", section: "مركزی", group: 4, percent: 25},
+            {province: "كردستان", city: "سنندج", section: "مركزی", group: 4, percent: 25},
+            {province: "كردستان", city: "كامیاران", section: "مركزی", group: 5, percent: 30},
+            {province: "كردستان", city: "كامیاران", section: "موحش", group: 5, percent: 30},
+            {province: "كردستان", city: "دیواندره", section: "مركزی", group: 5, percent: 30},
+            {province: "كردستان", city: "دیواندره", section: "كرفتو", group: 5, percent: 30},
+            {province: "كردستان", city: "قروه", section: "مركزی", group: 5, percent: 30},
+            {province: "كردستان", city: "مریوان", section: "مركزی", group: 5, percent: 30},
+            {province: "كردستان", city: "بانه", section: "نمشیر", group: 7, percent: 40},
+            {province: "كردستان", city: "بانه", section: "ننور", group: 7, percent: 40},
+            {province: "كردستان", city: "قروه", section: "ئیلان", group: 7, percent: 40},
+            {province: "كردستان", city: "مریوان", section: "خاوومیرآباد", group: 8, percent: 45},
+            {province: "كردستان", city: "مریوان", section: "سرشیو", group: 8, percent: 45},
+            {province: "كردستان", city: "مریوان", section: "سروآباد", group: 8, percent: 45},
+            {province: "كردستان", city: "سنندج", section: "كلاترزان", group: 8, percent: 45},
+            {province: "كردستان", city: "بانه", section: "آلوت", group: 9, percent: 50},
+            {province: "كرمان", city: "كرمان", section: "مركزی", group: 1, percent: 10},
+            {province: "كرمان", city: "رفسنجان", section: "مركزی", group: 3, percent: 20},
+            {province: "كرمان", city: "كرمان", section: "شهداد", group: 4, percent: 25},
+            {province: "كرمان", city: "كرمان", section: "گلبافت", group: 4, percent: 25},
+            {province: "كرمان", city: "كرمان", section: "ماهان", group: 4, percent: 25},
+            {province: "كرمان", city: "بافت", section: "مركزی", group: 4, percent: 25},
+            {province: "كرمان", city: "بم", section: "مركزی", group: 4, percent: 25},
+            {province: "كرمان", city: "جیرفت", section: "مركزی", group: 4, percent: 25},
+            {province: "كرمان", city: "سیرجان", section: "مركزی", group: 4, percent: 25},
+            {province: "كرمان", city: "كرمان", section: "راور", group: 4, percent: 25},
+            {province: "كرمان", city: "بم", section: "ریگان", group: 5, percent: 30},
+            {province: "كرمان", city: "زرند", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمان", city: "شهربابك", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمان", city: "بردسیر", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمان", city: "بافت", section: "رابر", group: 6, percent: 35},
+            {province: "كرمان", city: "بم", section: "نرماشیر", group: 6, percent: 35},
+            {province: "كرمان", city: "جیرفت", section: "ساردوئیه", group: 7, percent: 40},
+            {province: "كرمان", city: "جیرفت", section: "جبال بارز", group: 8, percent: 45},
+            {province: "كرمان", city: "زرند", section: "كوه بنان", group: 8, percent: 45},
+            {province: "كرمان", city: "كهنوج", section: "مركزی", group: 8, percent: 45},
+            {province: "كرمان", city: "كهنوج", section: "رودبار", group: 9, percent: 50},
+            {province: "كرمان", city: "كهنوج", section: "قلعه گنج", group: 9, percent: 50},
+            {province: "كرمان", city: "كهنوج", section: "منوجان", group: 9, percent: 50},
+            {province: "كرمانشاه", city: "كرمانشاه", section: "مركزی", group: 1, percent: 10},
+            {province: "كرمانشاه", city: "سنقر", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمانشاه", city: "گیلانغرب", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمانشاه", city: "اسلام آباد غرب", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمانشاه", city: "پاوه", section: "مركزی", group: 5, percent: 30},
+            {province: "كرمانشاه", city: "صحنه", section: "مركزی", group: 6, percent: 35},
+            {province: "كرمانشاه", city: "صحنه", section: "دینور", group: 6, percent: 35},
+            {province: "كرمانشاه", city: "كرمانشاه", section: "هرسین", group: 6, percent: 35},
+            {province: "كرمانشاه", city: "جوانرود", section: "روانسر", group: 6, percent: 35},
+            {province: "كرمانشاه", city: "كنگاور", section: "مركزی", group: 6, percent: 35},
+            {province: "كرمانشاه", city: "اسلام آباد غرب", section: "كرند", group: 7, percent: 40},
+            {province: "كرمانشاه", city: "جوانرود", section: "مركزی", group: 7, percent: 40},
+            {province: "كرمانشاه", city: "سرپل ذهاب", section: "مركزی", group: 7, percent: 40},
+            {province: "كرمانشاه", city: "پاوه", section: "باینگان", group: 8, percent: 45},
+            {province: "كرمانشاه", city: "پاوه", section: "نوسود", group: 8, percent: 45},
+            {province: "كرمانشاه", city: "جوانرود", section: "ثلاث باباجانی", group: 9, percent: 50},
+            {province: "كرمانشاه", city: "قصرشیرین", section: "سومار", group: 9, percent: 50},
+            {province: "كرمانشاه", city: "قصرشیرین", section: "مركزی", group: 9, percent: 50},
+            {province: "كهكیلویه و بویراحمد", city: "بویراحمد", section: "مركزی", group: 5, percent: 30},
+            {province: "كهكیلویه و بویراحمد", city: "كهكیلویه", section: "مركزی", group: 5, percent: 30},
+            {province: "كهكیلویه و بویراحمد", city: "كهكیلویه", section: "چرام", group: 6, percent: 35},
+            {province: "كهكیلویه و بویراحمد", city: "كهكیلویه", section: "لنده", group: 6, percent: 35},
+            {province: "كهكیلویه و بویراحمد", city: "گچساران", section: "مركزی", group: 6, percent: 35},
+            {province: "كهكیلویه و بویراحمد", city: "بویراحمد", section: "دروهان", group: 7, percent: 40},
+            {province: "كهكیلویه و بویراحمد", city: "كهكیلویه", section: "بهمئی", group: 7, percent: 40},
+            {province: "كهكیلویه و بویراحمد", city: "گچساران", section: "باشت", group: 8, percent: 45},
+            {province: "گیلان", city: "رشت", section: "مركزی", group: 1, percent: 10},
+            {province: "گیلان", city: "لاهیجان", section: "مركزی", group: 2, percent: 15},
+            {province: "گیلان", city: "آستارا", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "آستانه اشرفیه", section: "كیاشهر", group: 3, percent: 20},
+            {province: "گیلان", city: "آستانه اشرفیه", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "بندرانزلی", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "طوالش", section: "رضوان شهر", group: 3, percent: 20},
+            {province: "گیلان", city: "طوالش", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "رشت", section: "خمام", group: 3, percent: 20},
+            {province: "گیلان", city: "رشت", section: "كوچصفهان", group: 3, percent: 20},
+            {province: "گیلان", city: "رشت", section: "لشت نشاء", group: 3, percent: 20},
+            {province: "گیلان", city: "رودسر", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "صومعه سرا", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "لنگرود", section: "مركزی", group: 3, percent: 20},
+            {province: "گیلان", city: "صومعه سرا", section: "تولم", group: 4, percent: 25},
+            {province: "گیلان", city: "طوالش", section: "ماسال شاندرمن", group: 5, percent: 30},
+            {province: "گیلان", city: "رودبار", section: "مركزی", group: 5, percent: 30},
+            {province: "گیلان", city: "رودسر", section: "املش", group: 5, percent: 30},
+            {province: "گیلان", city: "لاهیجان", section: "سیاهكل", group: 5, percent: 30},
+            {province: "گیلان", city: "رودبار", section: "عمارلو", group: 6, percent: 35},
+            {province: "گیلان", city: "فومن", section: "شفت", group: 6, percent: 35},
+            {province: "گیلان", city: "فومن", section: "مركزی", group: 6, percent: 35},
+            {province: "لرستان", city: "بروجرد", section: "مركزی", group: 2, percent: 15},
+            {province: "لرستان", city: "خرم آباد", section: "مركزی", group: 2, percent: 15},
+            {province: "لرستان", city: "درود", section: "مركزی", group: 4, percent: 25},
+            {province: "لرستان", city: "درود", section: "سیلاخور", group: 4, percent: 25},
+            {province: "لرستان", city: "الیگودرز", section: "مركزی", group: 4, percent: 25},
+            {province: "لرستان", city: "بروجرد", section: "اشترینان", group: 5, percent: 30},
+            {province: "لرستان", city: "الیگودرز", section: "جاپلق", group: 6, percent: 35},
+            {province: "لرستان", city: "خرم آباد", section: "سلسله(الشتر)", group: 6, percent: 35},
+            {province: "لرستان", city: "خرم آباد", section: "زاغه", group: 6, percent: 35},
+            {province: "لرستان", city: "كوهدشت", section: "طرهان", group: 6, percent: 35},
+            {province: "لرستان", city: "كوهدشت", section: "مركزی", group: 6, percent: 35},
+            {province: "لرستان", city: "كوهدشت", section: "رومشكان", group: 6, percent: 35},
+            {province: "لرستان", city: "خرم آباد", section: "ملاوی", group: 6, percent: 35},
+            {province: "لرستان", city: "خرم آباد", section: "پاپی", group: 7, percent: 40},
+            {province: "لرستان", city: "خرم آباد", section: "چغلوندی", group: 7, percent: 40},
+            {province: "لرستان", city: "خرم آباد", section: "ویسیان", group: 7, percent: 40},
+            {province: "لرستان", city: "دلفان", section: "مركزی", group: 8, percent: 45},
+            {province: "لرستان", city: "دلفان", section: "كاكاوند", group: 8, percent: 45},
+            {province: "لرستان", city: "خرم آباد", section: "دوره چگنی", group: 8, percent: 45},
+            {province: "لرستان", city: "الیگودرز", section: "ززوماهرو", group: 9, percent: 50},
+            {province: "مازندران", city: "آمل", section: "مركزی", group: 1, percent: 10},
+            {province: "مازندران", city: "بابل", section: "مركزی", group: 1, percent: 10},
+            {province: "مازندران", city: "ساری", section: "مركزی", group: 1, percent: 10},
+            {province: "مازندران", city: "گرگان", section: "مركزی", group: 1, percent: 10},
+            {province: "مازندران", city: "بابلسر", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "بابلسر", section: "فریدون كنار", group: 2, percent: 15},
+            {province: "مازندران", city: "بهشهر", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "تنكابن", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "رامسر", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "قائم شهر", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "نوشهر", section: "چالوس", group: 2, percent: 15},
+            {province: "مازندران", city: "نوشهر", section: "مركزی", group: 2, percent: 15},
+            {province: "مازندران", city: "نور", section: "مركزی", group: 3, percent: 20},
+            {province: "مازندران", city: "بابل", section: "بندپی شرقی و غربی", group: 4, percent: 25},
+            {province: "مازندران", city: "بندرتركمن", section: "مركزی", group: 4, percent: 25},
+            {province: "مازندران", city: "بهشهر", section: "گلوگاه", group: 4, percent: 25},
+            {province: "مازندران", city: "بهشهر", section: "نكا", group: 4, percent: 25},
+            {province: "مازندران", city: "سوادكوه", section: "مركزی", group: 4, percent: 25},
+            {province: "مازندران", city: "علی آباد", section: "مركزی", group: 4, percent: 25},
+            {province: "مازندران", city: "گنبدكاوس", section: "مركزی", group: 4, percent: 25},
+            {province: "مازندران", city: "مینودشت", section: "گالیكش", group: 4, percent: 25},
+            {province: "مازندران", city: "مینودشت", section: "مركزی", group: 4, percent: 25},
+            {province: "مازندران", city: "نوشهر", section: "كلاردشت", group: 4, percent: 25},
+            {province: "مازندران", city: "آمل", section: "لاریجان", group: 5, percent: 30},
+            {province: "مازندران", city: "آمل", section: "هراز", group: 5, percent: 30},
+            {province: "مازندران", city: "بندرتركمن", section: "گمیشان", group: 5, percent: 30},
+            {province: "مازندران", city: "بهشهر", section: "یانه سر", group: 5, percent: 30},
+            {province: "مازندران", city: "ساری", section: "چهاردانگه", group: 5, percent: 30},
+            {province: "مازندران", city: "ساری", section: "دودانگه", group: 5, percent: 30},
+            {province: "مازندران", city: "كردكوی", section: "بندرگز", group: 5, percent: 30},
+            {province: "مازندران", city: "كردكوی", section: "مركزی", group: 5, percent: 30},
+            {province: "مازندران", city: "گنبدكاوس", section: "رامیان", group: 5, percent: 30},
+            {province: "مازندران", city: "نور", section: "بلده", group: 5, percent: 30},
+            {province: "مازندران", city: "گرگان", section: "آق قلا", group: 6, percent: 35},
+            {province: "مازندران", city: "گنبدكاوس", section: "داشلی برون", group: 6, percent: 35},
+            {province: "مازندران", city: "مینودشت", section: "كلاله", group: 6, percent: 35},
+            {province: "مازندران", city: "مینودشت", section: "مراوه تپه", group: 6, percent: 35},
+            {province: "مازندران", city: "نور", section: "چمستان", group: 6, percent: 35},
+            {province: "مرکزی", city: "اراك", section: "مركزی", group: 1, percent: 10},
+            {province: "مرکزی", city: "خمین", section: "مركزی", group: 2, percent: 15},
+            {province: "مرکزی", city: "ساوه", section: "مركزی", group: 2, percent: 15},
+            {province: "مرکزی", city: "محلات", section: "مركزی", group: 2, percent: 15},
+            {province: "مرکزی", city: "آشتیان", section: "مركزی", group: 3, percent: 20},
+            {province: "مرکزی", city: "تفرش", section: "مركزی", group: 3, percent: 20},
+            {province: "مرکزی", city: "تفرش", section: "فراهان", group: 4, percent: 25},
+            {province: "مرکزی", city: "دلیجان", section: "مركزی", group: 4, percent: 25},
+            {province: "مرکزی", city: "ساوه", section: "خرقان", group: 4, percent: 25},
+            {province: "مرکزی", city: "ساوه", section: "زرند", group: 4, percent: 25},
+            {province: "مرکزی", city: "اراك", section: "وفس", group: 5, percent: 30},
+            {province: "مرکزی", city: "ساوه", section: "نوبران", group: 5, percent: 30},
+            {province: "مرکزی", city: "سربند", section: "مركزی", group: 5, percent: 30},
+            {province: "هرمزگان", city: "بندرعباس", section: "مركزی", group: 1, percent: 10},
+            {province: "هرمزگان", city: "بندرلنگه", section: "مركزی", group: 5, percent: 30},
+            {province: "هرمزگان", city: "حاجی آباد", section: "فارغان", group: 6, percent: 35},
+            {province: "هرمزگان", city: "حاجی آباد", section: "مركزی", group: 6, percent: 35},
+            {province: "هرمزگان", city: "بندرعباس", section: "فین", group: 6, percent: 35},
+            {province: "هرمزگان", city: "میناب", section: "مركزی", group: 6, percent: 35},
+            {province: "هرمزگان", city: "بندرعباس", section: "بندرخمیر", group: 7, percent: 40},
+            {province: "هرمزگان", city: "جزیره قشم", section: "مركزی", group: 7, percent: 40},
+            {province: "هرمزگان", city: "بندرلنگه", section: "شیبكوه", group: 8, percent: 45},
+            {province: "هرمزگان", city: "بندرلنگه", section: "گاوبندی", group: 8, percent: 45},
+            {province: "هرمزگان", city: "جزیره قشم", section: "شهاب", group: 8, percent: 45},
+            {province: "هرمزگان", city: "میناب", section: "بیابان", group: 8, percent: 45},
+            {province: "هرمزگان", city: "ردان", section: "مركزی", group: 8, percent: 45},
+            {province: "هرمزگان", city: "ردان", section: "رودخانه", group: 8, percent: 45},
+            {province: "هرمزگان", city: "جاسك", section: "مركزی", group: 8, percent: 45},
+            {province: "هرمزگان", city: "بندرلنگه", section: "بستك", group: 8, percent: 45},
+            {province: "هرمزگان", city: "ابوموسی", section: "تنب", group: 9, percent: 50},
+            {province: "هرمزگان", city: "ابوموسی", section: "مركزی", group: 9, percent: 50},
+            {province: "هرمزگان", city: "بندرلنگه", section: "كیش", group: 9, percent: 50},
+            {province: "هرمزگان", city: "بندرجاسك", section: "بشاگرد", group: 9, percent: 50},
+            {province: "همدان", city: "همدان", section: "مركزی", group: 1, percent: 10},
+            {province: "همدان", city: "ملایر", section: "مركزی", group: 2, percent: 15},
+            {province: "همدان", city: "تویسركان", section: "مركزی", group: 3, percent: 20},
+            {province: "همدان", city: "نهاوند", section: "مركزی", group: 3, percent: 20},
+            {province: "همدان", city: "ملایر", section: "سامن", group: 4, percent: 25},
+            {province: "همدان", city: "اسدآباد", section: "مركزی", group: 4, percent: 25},
+            {province: "همدان", city: "بهار", section: "مركزی", group: 4, percent: 25},
+            {province: "همدان", city: "بهار", section: "لالجین", group: 4, percent: 25},
+            {province: "همدان", city: "همدان", section: "فامنین", group: 4, percent: 25},
+            {province: "همدان", city: "كبودرآهنگ", section: "مركزی", group: 4, percent: 25},
+            {province: "همدان", city: "كبودرآهنگ", section: "گل تپه", group: 4, percent: 25},
+            {province: "همدان", city: "نهاوند", section: "خزل", group: 5, percent: 30},
+            {province: "همدان", city: "رزن", section: "مركزی", group: 5, percent: 30},
+            {province: "همدان", city: "رزن", section: "سردرود", group: 5, percent: 30},
+            {province: "همدان", city: "رزن", section: "قروه درجزین", group: 5, percent: 30},
+            {province: "همدان", city: "همدان", section: "شرا", group: 5, percent: 30},
+            {province: "یزد", city: "یزد", section: "مركزی", group: 1, percent: 10},
+            {province: "یزد", city: "بافق", section: "مركزی", group: 3, percent: 20},
+            {province: "یزد", city: "تفت", section: "مركزی", group: 3, percent: 20},
+            {province: "یزد", city: "مهریز", section: "مركزی", group: 4, percent: 25},
+            {province: "یزد", city: "یزد", section: "اشكذر", group: 4, percent: 25},
+            {province: "یزد", city: "اردكان", section: "مركزی", group: 5, percent: 30},
+            {province: "یزد", city: "میبد", section: "مركزی", group: 5, percent: 30},
+            {province: "یزد", city: "یزد", section: "خضرآباد", group: 5, percent: 30},
+            {province: "یزد", city: "بافق", section: "بهاباد", group: 6, percent: 35},
+            {province: "یزد", city: "تفت", section: "نیر", group: 6, percent: 35},
+            {province: "یزد", city: "اردكان", section: "خرانق", group: 6, percent: 35},
+            {province: "یزد", city: "تفت", section: "ابركوه", group: 7, percent: 40}
+        ];
+
+
+                
+                citiesLoaded = true;
+                renderCitiesList();
+            }, 800); // تاخیر شبیه‌سازی شده
+        }
+
+        // تابع نمایش لیست شهرها
+        function renderCitiesList(searchTerm = '') {
+            const citySelector = document.getElementById('city-selector');
+            citySelector.classList.remove('loading');
+            
+            if (!citiesLoaded) {
+                citySelector.innerHTML = '<div class="text-center p-3">خطا در بارگیری داده‌ها</div>';
+                return;
+            }
+            
+            citySelector.innerHTML = '';
+            
+            const filteredCities = searchTerm 
+                ? citiesData.filter(city => 
+                    city.province.includes(searchTerm) || 
+                    city.city.includes(searchTerm) ||
+                    city.section.includes(searchTerm))
+                : citiesData;
+                
+            if (filteredCities.length === 0) {
+                citySelector.innerHTML = '<div class="text-center p-3">موردی یافت نشد</div>';
+                return;
+            }
+            
+            // گروه‌بندی بر اساس استان
+            const provinces = [...new Set(filteredCities.map(city => city.province))];
+            
+            provinces.forEach(province => {
+                const provinceCities = filteredCities.filter(city => city.province === province);
+                
+                const provinceHeader = document.createElement('div');
+                provinceHeader.className = 'province-header';
+                provinceHeader.textContent = province;
+                citySelector.appendChild(provinceHeader);
+                
+                provinceCities.forEach(city => {
+                    const cityItem = document.createElement('div');
+                    cityItem.className = `city-item ${selectedCity && selectedCity.city === city.city && selectedCity.section === city.section ? 'selected' : ''}`;
+                    cityItem.innerHTML = `
+                        ${city.city} - ${city.section} (گروه ${city.group} - ${city.percent}%)
+                    `;
+                    cityItem.addEventListener('click', () => {
+                        selectedCity = city;
+                        renderCitiesList(searchTerm);
+                        document.getElementById('city-search').value = `${city.province} - ${city.city}`;
+                        document.getElementById('city-selector').style.display = 'none';
+                    });
+                    citySelector.appendChild(cityItem);
+                });
+            });
+        }
+
+        // افزودن رویداد برای فرمت‌دهی اعداد هنگام ورود
+        document.querySelectorAll('.formatted-number').forEach(input => {
+            input.addEventListener('input', function(e) {
+                // تبدیل اعداد فارسی و عربی به انگلیسی
+                let value = convertPersianToEnglishNumbers(this.value);
+                
+                // حذف همه کاراکترهای غیرعددی
+                value = value.replace(/[^\d]/g, '');
+                
+                if (value) {
+                    const number = parseInt(value, 10);
+                    this.value = formatNumber(number);
+                } else {
+                    this.value = '';
+                }
+                
+                // اعتبارسنجی
+                const errorElement = document.getElementById(`${this.id}-error`);
+                if (errorElement) {
+                    validateNumberInput(this, errorElement);
+                }
+            });
+            
+            // اعتبارسنجی هنگام از دست دادن فوکوس
+            input.addEventListener('blur', function() {
+                const errorElement = document.getElementById(`${this.id}-error`);
+                if (errorElement) {
+                    validateNumberInput(this, errorElement);
+                }
+            });
+        });
+
+        // اعتبارسنجی فیلد تعداد روزها
+        document.getElementById('days-count').addEventListener('input', function() {
+            validateNumberInput(this, document.getElementById('days-count-error'));
+        });
+        
+        document.getElementById('days-count').addEventListener('blur', function() {
+            validateNumberInput(this, document.getElementById('days-count-error'));
+        });
+
+        // جستجوی شهرها
+        document.getElementById('city-search').addEventListener('focus', function() {
+            if (!citiesLoaded) {
+                loadCitiesData();
+            } else {
+                document.getElementById('city-selector').style.display = 'block';
+            }
+        });
+        
+        document.getElementById('city-search').addEventListener('input', function(e) {
+            if (!citiesLoaded) return;
+            renderCitiesList(this.value);
+            if (this.value === '') {
+                selectedCity = null;
+            }
+        });
+
+        // محاسبه حق ماموریت
+        function calculateMission() {
+            // اعتبارسنجی فیلدهای ورودی
+            const totalSalaryValid = validateNumberInput(
+                document.getElementById('total-salary'), 
+                document.getElementById('total-salary-error')
+            );
+            
+            const daysCountValid = validateNumberInput(
+                document.getElementById('days-count'), 
+                document.getElementById('days-count-error')
+            );
+            
+            if (!totalSalaryValid || !daysCountValid) {
+                alert('لطفاً مقادیر معتبر برای حقوق و تعداد روزها وارد کنید.');
+                return;
+            }
+            
+            const minSalary = selectedMinSalaryCard === 1 ? minSalary1404 : minSalaryContract;
+            const totalSalary = parseFormattedNumber(document.getElementById('total-salary').value) || 0;
+            const daysCount = parseInt(document.getElementById('days-count').value) || 1;
+            let missionType = document.querySelector('input[name="mission-type"]:checked').value;
+            const hasFreeAccommodation = document.querySelector('input[name="accommodation"]:checked').value === 'yes';
+            const badWeather = document.getElementById('bad-weather').checked;
+            const isRoadOrganization = document.getElementById('road-organization').checked;
+            const isSnowRemoval = document.getElementById('snow-removal').checked;
+            const isDifficultMission = document.getElementById('difficult-mission').checked;
+            const isNonResidential = document.getElementById('non-residential').checked;
+            const isMinister = document.getElementById('minister').checked;
+            const isTeacher = document.getElementById('teacher').checked;
+            const isDeputyMinister = document.getElementById('deputy-minister').checked;
+            
+            // اگر کارمند سازمان راهداری باشد، محاسبه با بیتوته انجام می‌شود
+            if (isRoadOrganization) {
+                missionType = 'with-overnight';
+            }
+            
+            // محاسبه حق ماموریت روزانه پایه
+            const dailyBase = missionType === 'with-overnight' 
+                ? (minSalary + totalSalary) / 50 
+                : (minSalary + totalSalary) / 100;
+            
+            // محاسبه فوق العاده محرومیت (اگر شهری انتخاب شده باشد)
+            let deprivationExtra = 0;
+            if (selectedCity) {
+                deprivationExtra = dailyBase * (selectedCity.percent / 100);
+            }
+            
+            // محاسبه اضافه آب و هوای بد (15% از حق ماموریت پایه)
+            const weatherExtra = badWeather ? dailyBase * 0.15 : 0;
+            
+            // محاسبه سایر اضافات
+            let additionalExtras = 0;
+            let additionalExtrasDetails = [];
+            
+            if (isSnowRemoval) {
+                const extra = dailyBase * 0.4;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`مکانسین‌ها و رانندگان برفروبی (40%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            if (isDifficultMission) {
+                const extra = dailyBase * 0.4;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`ماموریت دشوار (40%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            if (isNonResidential) {
+                const extra = dailyBase * 0.25;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`مناطق غیر مسکونی (25%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            if (isMinister) {
+                const extra = dailyBase * 0.5;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`وزیر و روسای سازمان‌ها (50%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            if (isTeacher) {
+                const extra = dailyBase * 0.5;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`معلمان و مدرسان (50%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            if (isDeputyMinister) {
+                const extra = dailyBase * 0.3;
+                additionalExtras += extra;
+                additionalExtrasDetails.push(`معاون وزیر و استاندار (30%): ${formatNumber(Math.round(extra))} ریال`);
+            }
+            
+            // محاسبه مبلغ قبل از کسر اقامت
+            const beforeAccommodation = dailyBase + deprivationExtra + weatherExtra + additionalExtras;
+            
+            // کسر اقامت رایگان (30% از مبلغ نهایی قبل از کسر)
+            const accommodationDeduction = hasFreeAccommodation ? beforeAccommodation * 0.3 : 0;
+            
+            // حق ماموریت روزانه نهایی
+            const dailyFinal = beforeAccommodation - accommodationDeduction;
+            
+            // کل مبلغ ماموریت
+            const totalMission = dailyFinal * daysCount;
+            
+            // نمایش نتایج
+            document.getElementById('mission-type-result').textContent = 
+                missionType === 'with-overnight' ? 'با بیتوته' : 'بدون بیتوته';
+                
+            document.getElementById('days-count-result').textContent = daysCount;
+            
+            // نمایش یا عدم نمایش ردیف‌های مربوط به شهر
+            if (selectedCity) {
+                document.getElementById('city-group-row').style.display = 'flex';
+                document.getElementById('deprivation-percent-row').style.display = 'flex';
+                document.getElementById('deprivation-extra-row').style.display = 'flex';
+                
+                document.getElementById('city-group-result').textContent = 
+                    `${selectedCity.city} - ${selectedCity.section} (گروه ${selectedCity.group})`;
+                document.getElementById('deprivation-percent-result').textContent = `${selectedCity.percent}%`;
+                document.getElementById('deprivation-extra-result').textContent = formatNumber(Math.round(deprivationExtra)) + ' ریال';
+            } else {
+                document.getElementById('city-group-row').style.display = 'none';
+                document.getElementById('deprivation-percent-row').style.display = 'none';
+                document.getElementById('deprivation-extra-row').style.display = 'none';
+            }
+            
+            // نمایش یا عدم نمایش ردیف آب و هوای بد
+            if (badWeather) {
+                document.getElementById('weather-extra-row').style.display = 'flex';
+                document.getElementById('weather-extra-result').textContent = formatNumber(Math.round(weatherExtra)) + ' ریال';
+            } else {
+                document.getElementById('weather-extra-row').style.display = 'none';
+            }
+            
+            // نمایش یا عدم نمایش ردیف کسر اقامت
+            if (hasFreeAccommodation) {
+                document.getElementById('accommodation-deduction-row').style.display = 'flex';
+                document.getElementById('accommodation-deduction-result').textContent = formatNumber(Math.round(accommodationDeduction)) + ' ریال';
+            } else {
+                document.getElementById('accommodation-deduction-row').style.display = 'none';
+            }
+            
+            // نمایش سایر اضافات
+            if (additionalExtras > 0) {
+                document.getElementById('additional-extras-row').style.display = 'flex';
+                document.getElementById('additional-extras-result').textContent = formatNumber(Math.round(additionalExtras)) + ' ریال';
+            } else {
+                document.getElementById('additional-extras-row').style.display = 'none';
+            }
+            
+            document.getElementById('daily-mission-base-result').textContent = formatNumber(Math.round(dailyBase)) + ' ریال';
+            document.getElementById('daily-mission-final-result').textContent = formatNumber(Math.round(dailyFinal)) + ' ریال';
+            document.getElementById('total-mission-result').textContent = formatNumber(Math.round(totalMission)) + ' ریال';
+            
+            // نمایش فرمول محاسباتی
+            let formulaText = `حق ماموریت روزانه ${missionType === 'with-overnight' ? 'با بیتوته' : 'بدون بیتوته'}: 
+                (${formatNumber(minSalary)} + ${formatNumber(totalSalary)}) / ${missionType === 'with-overnight' ? '50' : '100'} = ${formatNumber(Math.round(dailyBase))} ریال`;
+            
+            if (selectedCity) {
+                formulaText += `<br>فوق العاده محرومیت (${selectedCity.percent}%): ${formatNumber(Math.round(dailyBase))} × ${selectedCity.percent}% = ${formatNumber(Math.round(deprivationExtra))} ریال`;
+            }
+            
+            if (badWeather) {
+                formulaText += `<br>اضافه آب و هوای بد (15%): ${formatNumber(Math.round(dailyBase))} × 15% = ${formatNumber(Math.round(weatherExtra))} ریال`;
+            }
+            
+            if (additionalExtrasDetails.length > 0) {
+                formulaText += `<br>سایر اضافات:`;
+                additionalExtrasDetails.forEach(detail => {
+                    formulaText += `<br> - ${detail}`;
+                });
+            }
+            
+            formulaText += `<br>مبلغ قبل از کسر اقامت: ${formatNumber(Math.round(dailyBase))} `;
+            
+            if (selectedCity) {
+                formulaText += `+ ${formatNumber(Math.round(deprivationExtra))} `;
+            }
+            
+            if (badWeather) {
+                formulaText += `+ ${formatNumber(Math.round(weatherExtra))} `;
+            }
+            
+            if (additionalExtras > 0) {
+                formulaText += `+ ${formatNumber(Math.round(additionalExtras))} `;
+            }
+            
+            formulaText += `= ${formatNumber(Math.round(beforeAccommodation))} ریال`;
+            
+            if (hasFreeAccommodation) {
+                formulaText += `<br>کسر اقامت رایگان (30%): ${formatNumber(Math.round(beforeAccommodation))} × 30% = ${formatNumber(Math.round(accommodationDeduction))} ریال`;
+                formulaText += `<br>مبلغ نهایی: ${formatNumber(Math.round(beforeAccommodation))} - ${formatNumber(Math.round(accommodationDeduction))} = ${formatNumber(Math.round(dailyFinal))} ریال`;
+            } else {
+                formulaText += `<br>مبلغ نهایی: ${formatNumber(Math.round(beforeAccommodation))} ریال`;
+            }
+            
+            if (isRoadOrganization) {
+                formulaText += `<br><small>(محاسبه با بیتوته به دلیل کارمند بودن در سازمان راهداری)</small>`;
+            }
+            
+            document.getElementById('formula-text').innerHTML = formulaText;
+            
+            // نمایش بخش نتایج  
+            document.getElementById('result-section').style.display = 'block';
+            document.getElementById('result-section').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // نمایش توضیحات تکمیلی
+        function showDetails() {
+            const details = document.getElementById("details");
+            if (details.style.display === "none") {
+                details.style.display = "block";
+                details.scrollIntoView({behavior: 'smooth'});
+            } else {
+                details.style.display = "none";
+            }
+        }
+
+        // ریست فرم
+        function resetForm() {
+            document.getElementById('total-salary').value = '';
+            document.getElementById('days-count').value = '1';
+            document.querySelector('input[name="mission-type"][value="with-overnight"]').checked = true;
+            document.getElementById('city-search').value = '';
+            document.getElementById('city-selector').style.display = 'none';
+            document.querySelector('input[name="accommodation"][value="no"]').checked = true;
+            
+            // ریست چک‌باکس‌ها
+            document.getElementById('bad-weather').checked = false;
+            document.getElementById('road-organization').checked = false;
+            document.getElementById('snow-removal').checked = false;
+            document.getElementById('difficult-mission').checked = false;
+            document.getElementById('non-residential').checked = false;
+            document.getElementById('minister').checked = false;
+            document.getElementById('teacher').checked = false;
+            document.getElementById('deputy-minister').checked = false;
+            
+            selectedCity = null;
+            document.getElementById('result-section').style.display = 'none';
+            document.getElementById('details').style.display = 'none';
+            
+            // پاک کردن خطاها
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            
+            // بازگشت به انتخاب اولیه حداقل حقوق
+            selectMinSalaryCard(1);
+        }
+
+        // مقداردهی اولیه
+        document.addEventListener('DOMContentLoaded', () => {
+            // لود داده‌ها فقط هنگام نیاز
+            document.getElementById('city-search').addEventListener('focus', loadCitiesData);
+            
+            // اضافه کردن رویداد Enter برای فیلدهای ورودی
+            document.getElementById('total-salary').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateMission();
+                }
+            });
+            
+            document.getElementById('days-count').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateMission();
+                }
+            });
+            
+            // اضافه کردن رویداد کلیک به دکمه محاسبه
+            document.getElementById('calculate-btn').addEventListener('click', calculateMission);
+            
+            // بستن لیست شهرها هنگام کلیک خارج از آن
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('#city-search') && !e.target.closest('#city-selector')) {
+                    document.getElementById('city-selector').style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
